@@ -1,18 +1,15 @@
-import {ChakraProvider, Heading, Square, Stack} from "@chakra-ui/react";
-import {TempDevelopmentPage} from "./pages/TempDevelopmentPage";
+import {ChakraProvider} from "@chakra-ui/react";
+import {AuthContextProvider} from "./components/common/AuthContextProvider";
+import {AppRouting} from "./components/AppRouting";
+
 
 function App() {
     return (
-        <ChakraProvider>
-            <Stack>
-                <Heading>
-                    Ash application
-                </Heading>
-                <Square>
-                    <TempDevelopmentPage/>
-                </Square>
-            </Stack>
-        </ChakraProvider>
+        <AuthContextProvider>
+            <ChakraProvider>
+                <AppRouting/>
+            </ChakraProvider>
+        </AuthContextProvider>
     );
 }
 

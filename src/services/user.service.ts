@@ -5,12 +5,8 @@ const USER_ENDPOINT = `${API_ENDPOINT}/user`;
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const fetchUser = async (): Promise<ApiUserCredentials[]> => {
-    return axios.get<any, AxiosResponse<ApiUserCredentials[]>>(USER_ENDPOINT).then(response => response?.data || [])
-}
-
 export const saveUser = async (request: ApiUserCredentials): Promise<string> => {
-    return axios.post<ApiUserCredentials, AxiosResponse<string>>(USER_ENDPOINT, request).then(r => r.data);
+    return axios.post<ApiUserCredentials, AxiosResponse<string>>(`${USER_ENDPOINT}/register`, request).then(r => r.data);
 }
 
 export const fetchUserConfiguration = async (): Promise<ApiUserConfiguration | undefined> => {
