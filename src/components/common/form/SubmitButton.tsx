@@ -1,13 +1,20 @@
-import React from "react";
-import {Button} from "@chakra-ui/react";
+import React, {useState} from "react";
+import {Button, Spinner} from "@chakra-ui/react";
 import {useFormikContext} from "formik";
 
-export const SubmitButton = () => {
+export const SubmitButton = ({children}: { children?: string }) => {
     const {submitForm} = useFormikContext();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmitForm = async () => {
+        setIsLoading(true);
+        submitForm()
+            .then(() => setIsLoading(false))
+    }
 
     return (
-        <Button onClick={submitForm}>
-            Submit
+        <Button variant={"outline"} width={"full"} mt={4} onClick={handleSubmitForm}>
+            {isLoading ? <Spinner/> : (children || "Submit")}
         </Button>
     )
 }

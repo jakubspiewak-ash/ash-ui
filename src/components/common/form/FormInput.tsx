@@ -1,21 +1,22 @@
-import {Box, Input, Text} from "@chakra-ui/react";
+import {FormControl, FormLabel, Input} from "@chakra-ui/react";
 import {useFormikContext} from "formik";
 import {InputFormProps} from "./components.types";
 
-export const InputForm = ({name, label, type}: InputFormProps) => {
+export const FormInput = ({name, label, type}: InputFormProps) => {
     const {values, handleChange} = useFormikContext<any>();
 
     return (
-        <Box>
-            <Text fontSize={"md"}>{label}</Text>
+        <FormControl mb={2}>
+            <FormLabel>{label}</FormLabel>
             <Input
                 id={name}
                 name={name}
                 value={values[name]}
                 onChange={handleChange}
                 placeholder={label}
+                variant={"filled"}
                 type={type}
             />
-        </Box>
+        </FormControl>
     )
 }

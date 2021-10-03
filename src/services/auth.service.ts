@@ -1,11 +1,11 @@
 import {API_ENDPOINT, ApiUserCredentials} from "./api.types";
-import axios, {AxiosResponse} from "axios";
+import {ApiClient} from "./client.service";
 
 const AUTH_ENDPOINT = `${API_ENDPOINT}/auth`;
 const TOKEN_STORAGE_KEY = "user_token";
 
 export const getApiToken = async (request: ApiUserCredentials): Promise<string> => {
-    return axios.post<ApiUserCredentials, AxiosResponse<string>>(AUTH_ENDPOINT, request).then(r => r.data);
+    return ApiClient.post<ApiUserCredentials, string>(AUTH_ENDPOINT, request);
 }
 
 export const getStorageToken = (): string | null => localStorage.getItem(TOKEN_STORAGE_KEY);

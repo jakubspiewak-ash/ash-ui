@@ -1,11 +1,11 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {ApiUserCredentials} from "../../services/api.types";
 import {clearStorageToken, getApiToken, getStorageToken, setStorageToken} from "../../services/auth.service";
+import {useErrorInfoContext} from "./ErrorInfoContextProvider";
 
 const AuthContext = createContext({
     authenticated: false,
-    login: (credentials: ApiUserCredentials) => {
-    },
+    login: (credentials: ApiUserCredentials): Promise<void> => Promise.reject(),
     logout: () => {
     }
 })
@@ -13,13 +13,15 @@ const AuthContext = createContext({
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({children}: { children: ReactNode }) => {
-    const [authenticated, setAuthenticated] = useState(false)
+    const [authenticated, setAuthenticated] = useState(false);
+    const {addErrorToast} = useErrorInfoContext();
 
     const login = (credentials: ApiUserCredentials) => {
-        getApiToken(credentials).then(token => {
-            setStorageToken(token);
-            setAuthenticated(true);
-        })
+        return getApiToken(credentials)
+            .then(token => {
+                setStorageToken(token);
+                setAuthenticated(true);
+            }).catch(addErrorToast);
     }
     const logout = () => {
         clearStorageToken();

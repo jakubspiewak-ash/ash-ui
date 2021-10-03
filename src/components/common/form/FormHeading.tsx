@@ -1,6 +1,9 @@
-import {FormHeadingProps} from "./components.types";
-import {Heading} from "@chakra-ui/react";
+import {Box, Heading} from "@chakra-ui/react";
 
-export const FormHeading = ({children}: FormHeadingProps) => {
-    return <Heading size={"lg"} color={"blackAlpha.500"}>{children}</Heading>
+export const FormHeading = ({children}: { children: string }) => {
+    return (
+        <Box textAlign={"center"} mb={4}>
+            <Heading>{children}</Heading>
+        </Box>
+    )
 }
