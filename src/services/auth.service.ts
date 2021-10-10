@@ -1,12 +1,12 @@
-import {API_ENDPOINT, ApiUserCredentials} from "./api.types";
-import {ApiClient} from "./client.service";
+import { ApiUserCredentials } from './api.types';
+import { ApiClient } from './client.service';
 
-const AUTH_ENDPOINT = `${API_ENDPOINT}/auth`;
-const TOKEN_STORAGE_KEY = "user_token";
+const AUTH_ENDPOINT = '/auth';
+const TOKEN_STORAGE_KEY = 'user_token';
 
-export const getApiToken = async (request: ApiUserCredentials): Promise<string> => {
-    return ApiClient.post<ApiUserCredentials, string>(AUTH_ENDPOINT, request);
-}
+export const getApiToken = async (request: ApiUserCredentials): Promise<string> => ApiClient.post<ApiUserCredentials, string>(AUTH_ENDPOINT, request);
+
+export const updateAuthorizationHeader = (token: string) => ApiClient.defaults.headers.Authorization = token;
 
 export const getStorageToken = (): string | null => localStorage.getItem(TOKEN_STORAGE_KEY);
 export const setStorageToken = (token: string) => localStorage.setItem(TOKEN_STORAGE_KEY, token);

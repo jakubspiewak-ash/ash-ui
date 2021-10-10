@@ -1,48 +1,48 @@
-import {Heading, Stack} from "@chakra-ui/react";
-import {UserConfigurationMailForm} from "./UserConfigurationMailForm";
-import {SubmitButton} from "../common/form/SubmitButton";
-import {Formik} from "formik";
-import {ApiUserConfiguration} from "../../services/api.types";
-import {useEffect, useState} from "react";
-import {fetchUserConfiguration, saveUserConfiguration} from "../../services/user.service";
+import { Heading, Stack } from '@chakra-ui/react';
+import { Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { UserConfigurationMailForm } from './UserConfigurationMailForm';
+import { SubmitButton } from '../common/form/SubmitButton';
+import { ApiUserConfiguration } from '../../services/api.types';
+import { fetchUserConfiguration, saveUserConfiguration } from '../../services/user.service';
 
 const emptyForm: ApiUserConfiguration = {
-    mail: {
-        address: undefined,
-        password: undefined,
-        host: undefined,
-        port: undefined,
-    }
-}
+  mail: {
+    address: '',
+    password: '',
+    host: '',
+    port: 0,
+  },
+};
 
 export const UserConfigurationForm = () => {
-    const [formValue, setFormValue] = useState(emptyForm);
+  const [formValue, setFormValue] = useState(emptyForm);
 
-    const fetchConfiguration = () => {
-        fetchUserConfiguration().then(v => v && setFormValue(v))
-    }
+  const fetchConfiguration = () => {
+    fetchUserConfiguration().then((v) => v && setFormValue(v));
+  };
 
-    const saveConfiguration = (configuration: ApiUserConfiguration) => {
-        saveUserConfiguration(configuration).then(fetchUserConfiguration)
-    }
+  const saveConfiguration = (configuration: ApiUserConfiguration) => {
+    saveUserConfiguration(configuration).then(fetchUserConfiguration);
+  };
 
-    useEffect(() => {
-        fetchConfiguration()
-    }, [])
+  useEffect(() => {
+    fetchConfiguration();
+  }, []);
 
-    return (
-        <Stack>
-            <Heading>Configuration</Heading>
-            <Formik<ApiUserConfiguration>
-                enableReinitialize
-                initialValues={formValue}
-                onSubmit={values => saveConfiguration(values)}
-            >
-                <>
-                    <UserConfigurationMailForm/>
-                    <SubmitButton/>
-                </>
-            </Formik>
-        </Stack>
-    )
-}
+  return (
+    <Stack>
+      <Heading>Configuration</Heading>
+      <Formik<ApiUserConfiguration>
+        enableReinitialize
+        initialValues={formValue}
+        onSubmit={(values) => saveConfiguration(values)}
+      >
+        <>
+          <UserConfigurationMailForm />
+          <SubmitButton />
+        </>
+      </Formik>
+    </Stack>
+  );
+};
