@@ -1,12 +1,8 @@
 import { Button } from '@chakra-ui/react';
 import { useExpenseContext } from '../../providers/ExpenseContextProvider';
 
-interface AddExpenseButtonProps {
-  onOpen: () => void;
-}
-
-export const ExpenseAddButton = ({ onOpen }: AddExpenseButtonProps) => {
-  const { setRequested } = useExpenseContext();
+export const ExpenseAddButton = () => {
+  const { setRequested, modal: {onOpen} } = useExpenseContext();
   return (
     <Button
       mr={2}

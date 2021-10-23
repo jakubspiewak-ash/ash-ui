@@ -1,49 +1,72 @@
-import { createContext, useContext, useState } from 'react';
-import { ApiExpenseRequest, ApiExpenseResponse } from '../services/api.types';
-import { HasChildren } from '../components/common/common.types';
-import { fetchExpenses } from '../services/expense.service';
-import { useErrorInfoContext } from './common/ErrorInfoContextProvider';
+import {createContext, useContext, useState} from 'react';
+import {ApiExpenseRequest, ApiExpenseResponse} from '../services/api.types';
+import {HasChildren} from '../components/common/common.types';
+import {fetchExpenses} from '../services/expense.service';
+import {useErrorInfoContext} from './common/ErrorInfoContextProvider';
+import {useDisclosure} from '@chakra-ui/react';
 
 interface ExpenseToEdit {
-  id: string,
-  request: ApiExpenseRequest,
+    id: string,
+    request: ApiExpenseRequest,
+}
+
+interface ModalFormType {
+    isOpen: boolean,
+    onOpen: () => void,
+    onClose: () => void
 }
 
 interface ExpenseContextType {
-  expenses: ApiExpenseResponse[];
-  updateExpenses: () => void;
-  requested?: ExpenseToEdit;
-  setRequested: (value?: ExpenseToEdit) => void;
+    expenses: ApiExpenseResponse[];
+    updateExpenses: () => void;
+    requested?: ExpenseToEdit;
+    setRequested: (value?: ExpenseToEdit) => void;
+    modal: ModalFormType;
+    isLoadingExpenses: boolean;
 }
 
 const ExpenseContext = createContext<ExpenseContextType>({
-  expenses: [],
-  updateExpenses: () => {
-  },
-  setRequested: () => {
-  },
+    expenses: [],
+    updateExpenses: () => Promise.reject(),
+    setRequested: () => {
+    },
+    modal: {
+        isOpen: false,
+        onOpen: () => {
+        },
+        onClose: () => {
+        },
+    },
+    isLoadingExpenses: false
 });
 
 export const useExpenseContext = () => useContext<ExpenseContextType>(ExpenseContext);
 
-export const ExpenseContextProvider = ({ children }: HasChildren) => {
-  const [expenses, setExpenses] = useState<ApiExpenseResponse[]>([]);
-  const [requested, setRequested] = useState<ExpenseToEdit>();
-  const { addErrorToast } = useErrorInfoContext();
+export const ExpenseContextProvider = ({children}: HasChildren) => {
+    const [expenses, setExpenses] = useState<ApiExpenseResponse[]>([]);
+    const [requested, setRequested] = useState<ExpenseToEdit>();
+    const [isLoadingExpenses, setIsLoading] = useState(false);
 
-  const updateExpenses = () => {
-    fetchExpenses().then(setExpenses).catch(addErrorToast);
-  };
+    const {addErrorToast} = useErrorInfoContext();
 
-  return (
-    <ExpenseContext.Provider value={{
-      expenses,
-      updateExpenses,
-      requested,
-      setRequested,
-    }}
-    >
-      {children}
-    </ExpenseContext.Provider>
-  );
+    const modal = useDisclosure();
+
+    const updateExpenses = () => {
+        setIsLoading(true)
+        fetchExpenses().then(setExpenses).catch(addErrorToast).then(() => setIsLoading(false));
+    };
+
+    return (
+        <ExpenseContext.Provider value={{
+            expenses,
+            updateExpenses,
+            requested,
+            setRequested,
+            modal,
+            isLoadingExpenses
+        }}
+        >
+            {children}
+        </ExpenseContext.Provider>
+    );
 };

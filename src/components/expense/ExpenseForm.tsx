@@ -5,24 +5,27 @@ import { useErrorInfoContext } from '../../providers/common/ErrorInfoContextProv
 import { useExpenseContext } from '../../providers/ExpenseContextProvider';
 import { ExpenseModalForm } from './ExpenseModalForm';
 
-export interface ExpenseFormProps {
-  isOpen: boolean,
-  onClose: () => void;
-}
 
 const emptyFormValue: ApiExpenseRequest = {
-    name: '',
-    amount: 0,
-    mailConfig: null
-  }
+        name: '',
+        amount: {
+            net: 0,
+            gross: 0,
+            vat: 23,
+            currency: 'PLN'
+        },
+        mailConfig: null,
+        isPrivate: false
+    }
 ;
 
-export const ExpenseForm = (props: ExpenseFormProps) => {
+export const ExpenseForm = () => {
   const { addErrorToast } = useErrorInfoContext();
-  const { requested } = useExpenseContext();
+  const { requested, updateExpenses } = useExpenseContext();
 
   const onFormSubmit = (request: ApiExpenseRequest) => {
-    (requested?.id ? updateExpense(requested.id, request) : saveExpenses(request)).catch(addErrorToast);
+        console.log(request)
+      // (requested?.id ? updateExpense(requested.id, request) : saveExpenses(request)).then(updateExpenses).catch(addErrorToast);
   };
 
   return (
@@ -31,7 +34,7 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
       onSubmit={onFormSubmit}
       enableReinitialize
     >
-      <ExpenseModalForm {...props} />
+      <ExpenseModalForm />
     </Formik>
   );
 };

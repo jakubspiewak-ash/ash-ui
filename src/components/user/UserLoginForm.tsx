@@ -19,8 +19,8 @@ export const UserLoginForm = () => {
       onSubmit={login}
     >
       <>
-        <FormInput name="login" label="Login" />
-        <FormInput name="password" label="Password" type="password" />
+        <FormInput field="login" label="Login" />
+        <FormInput field="password" label="Password" type="password" />
         <SubmitButton>Sign in</SubmitButton>
       </>
     </Formik>

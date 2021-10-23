@@ -19,15 +19,24 @@ export interface ApiExpenseMailConfig {
     attachmentPattern: string;
 }
 
+export interface Amount {
+    net: number,
+    gross: number,
+    vat: number,
+    currency: string
+}
+
 export interface ApiExpenseResponse {
     id: string,
-    amount: number,
+    amount: Amount,
     name: string,
+    isPrivate: boolean,
     mailConfig: ApiExpenseMailConfig | null;
 }
 
 export interface ApiExpenseRequest {
-    amount: number,
     name: string,
+    amount: Amount,
+    isPrivate: boolean,
     mailConfig: ApiExpenseMailConfig | null;
 }
