@@ -21,7 +21,6 @@ import {useFormikContext} from 'formik';
 import {ApiExpenseRequest} from '../../services/api.types';
 import {FormMoneyInput} from "../common/form/FormMoneyInput";
 import {FormSwitch} from "../common/form/FormSwitch";
-import {DatePicker} from "../common/form/datepicker/DatePicker";
 
 export const ExpenseModalForm = () => {
     const [initialized, setInitialized] = useState(false);
@@ -64,7 +63,6 @@ export const ExpenseModalForm = () => {
                 <ModalBody>
                     <FormInput field={'name'} label={'Name'}/>
                     <FormInput field={'date'} label={'Date'} type={"date"}/>
-                    <DatePicker onChange={console.log} selectedDate={new Date()}/>
                     <FormSwitch field={'isPrivate'} label={'Is private'}/>
                     <FormMoneyInput field={'amount'} label={'Amount'}/>
                     <Accordion allowToggle index={isMailConfigEnabled ? 0 : -1}>
