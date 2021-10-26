@@ -19,7 +19,13 @@ export const SubmitButton = ({ children, afterSubmitting }: SubmitButtonProps) =
   };
 
   return (
-    <Button variant="outline" width="full" p={4} onClick={handleSubmitForm}>
+    <Button
+        variant="outline"
+        width="full"
+        p={4}
+        onClick={handleSubmitForm}
+        boxShadow={'xl'}
+    >
       {isLoading ? <Spinner /> : (children || 'Submit')}
     </Button>
   );

@@ -26,11 +26,17 @@ export interface Amount {
     currency: string
 }
 
+export interface DateRange {
+    start?: Date,
+    end?: Date
+}
+
 export interface ApiExpenseResponse {
     id: string,
     amount: Amount,
     name: string,
     isPrivate: boolean,
+    date: DateRange,
     mailConfig: ApiExpenseMailConfig | null;
 }
 
@@ -38,5 +44,6 @@ export interface ApiExpenseRequest {
     name: string,
     amount: Amount,
     isPrivate: boolean,
+    date: DateRange,
     mailConfig: ApiExpenseMailConfig | null;
 }

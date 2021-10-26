@@ -1,13 +1,18 @@
 import {createContext, useContext, useState} from 'react';
-import {ApiExpenseRequest, ApiExpenseResponse} from '../services/api.types';
+import {Amount, ApiExpenseRequest, ApiExpenseResponse} from '../services/api.types';
 import {HasChildren} from '../components/common/common.types';
 import {fetchExpenses} from '../services/expense.service';
 import {useErrorInfoContext} from './common/ErrorInfoContextProvider';
 import {useDisclosure} from '@chakra-ui/react';
+import {Omit} from "framer-motion/types/types";
+
+export type FormAmount = Omit<Amount, "net" | "gross"> & {net?: number, gross?: number}
+export type ExpenseFormType = Omit<ApiExpenseRequest, 'amount'> & {amount: FormAmount};
+
 
 interface ExpenseToEdit {
     id: string,
-    request: ApiExpenseRequest,
+    request: ExpenseFormType,
 }
 
 interface ModalFormType {

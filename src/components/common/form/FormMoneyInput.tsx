@@ -1,8 +1,17 @@
-import {FormControl, FormLabel, InputGroup, NumberInput, NumberInputField, Select} from "@chakra-ui/react";
+import {
+    FormControl,
+    FormErrorIcon,
+    FormErrorMessage,
+    FormLabel,
+    InputGroup,
+    NumberInput,
+    NumberInputField,
+    Select
+} from "@chakra-ui/react";
 import {useFormikContext} from "formik";
 import _ from "lodash";
 import {useEffect, useState} from "react";
-import {Amount} from "../../../services/api.types";
+import {FormAmount} from "../../../providers/ExpenseContextProvider";
 
 const currenciesCodes = ['PLN', 'EUR', 'DOL'];
 const vatValues = [0, 5, 8, 23];
@@ -11,76 +20,81 @@ const vatValues = [0, 5, 8, 23];
 interface MoneyInputProps {
     label: string,
     field: string,
-    disableVat?: boolean,
+    isDisabledVat?: boolean,
+    isDisabledGross?: boolean,
 }
 
 interface HasAmount {
-    [key: string]: Amount;
+    [key: string]: FormAmount;
 }
 
-export const FormMoneyInput = ({label, field, disableVat}: MoneyInputProps) => {
-    const {values, setFieldValue} = useFormikContext<HasAmount>();
+export const FormMoneyInput = ({label, field, isDisabledVat, isDisabledGross}: MoneyInputProps) => {
+    const {values, setFieldValue, errors, touched, handleBlur, handleChange, } = useFormikContext<HasAmount>();
 
-    const [localNet, setLocalNet] = useState<string>();
     const [localGross, setLocalGross] = useState<string>();
-
 
     const setFormCurrency = (value: string) => setFieldValue(`${field}.currency`, value)
     const setFormVat = (value: number) => setFieldValue(`${field}.vat`, value)
     const setFormNet = (value?: number) => setFieldValue(`${field}.net`, value)
     const setFormGross = (value?: number) => setFieldValue(`${field}.gross`, value)
 
-    const getFormCurrency = (): string | undefined => _.get(values, [field, 'currency'])
-    const getFormVat = (): number | undefined => _.get(values, [field, 'vat'])
-    const getFormNet = (): number | undefined => _.get(values, [field, 'net'])
-    const getFormGross = (): number | undefined => _.get(values, [field, 'gross'])
+    const getFormCurrency = (): string => _.get(values, [...field.split("."), 'currency'])
+    const getFormVat = (): number => _.get(values, [...field.split("."), 'vat'])
+    const getFormNet = (): number | undefined => _.get(values, [...field.split("."), 'net'])
+    const getFormGross = (): number | undefined => _.get(values, [...field.split("."), 'gross'])
 
-    const calculateGross = (net: number, vat: number) => net * ((100 + vat) / 100);
+    const calculateGross = (net: number, vat: number): number => net * ((100 + vat) / 100);
+    const calculateNet = (gross: number, vat: number): number => gross / ((100 + vat) / 100);
 
-    useEffect(() => {
-        if (!localNet || localNet === '') {
-            setFormNet(undefined);
-            setLocalGross(undefined);
-            return;
-        }
-        const parsedNet = parseFloat(localNet || '0');
-        if (parsedNet !== getFormNet()) {
-            setFormNet(parsedNet);
-            const calculatedGross = calculateGross(parsedNet, getFormVat() || 0);
-            setFormGross(calculatedGross);
-            setLocalGross(calculatedGross.toFixed(2))
-        }
-    }, [localNet]);
-
-    useEffect(() => {
-        if (!localGross || localGross === '') {
-            setFormGross(undefined);
-            return;
-        }
-        const parsedGross = parseFloat(localGross || '0');
-        if (parsedGross !== getFormGross()) {
-            setFormGross(parsedGross);
-        }
-    }, [localGross]);
+    const isFormInvalid = (): boolean =>
+        (!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`)) ||
+        (!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`));
 
     useEffect(() => {
         const formNet = getFormNet();
         if (formNet) {
-            const calculatedGross = calculateGross(formNet, getFormVat() || 0);
-            setLocalGross(calculatedGross.toFixed(2));
+            const calculatedGross = calculateGross(formNet, getFormVat());
             setFormGross(calculatedGross);
+        } else {
+            setFormGross(undefined);
         }
-    }, [getFormVat()]);
+    }, [getFormNet(), getFormVat()]);
 
+    useEffect(() => {
+        const formGross = getFormGross();
+        if (!formGross) {
+            setLocalGross('');
+            return;
+        }
+        const parsedGross = parseFloat(localGross || '0');
+
+        if (formGross !== parsedGross) {
+            setLocalGross(formGross.toFixed(2))
+        }
+
+    }, [getFormGross()])
 
     return (
-        <FormControl mb={4}>
-            <FormLabel>{label}</FormLabel>
-            <InputGroup>
+        <FormControl
+            mb={4}
+            isInvalid={isFormInvalid()}
+        >
+            <FormLabel>
+                <FormErrorIcon
+                    mr={2}
+                    color={"red.400"}
+                />
+                {label}
+            </FormLabel>
+            <InputGroup
+                boxShadow={'lg'}
+            >
                 <Select
                     borderEndRadius={0}
                     padding={0}
                     w={48}
+                    isInvalid={false}
+                    variant={'outline'}
                     value={getFormCurrency()}
                     onChange={({currentTarget: {value}}) => setFormCurrency(value)}
                 >
@@ -89,18 +103,24 @@ export const FormMoneyInput = ({label, field, disableVat}: MoneyInputProps) => {
                 <NumberInput
                     variant='filled'
                     precision={2}
-                    value={localNet}
-                    onChange={(value, _) => setLocalNet(value)}
+                    isInvalid={(!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`))}
                 >
                     <NumberInputField
-                        borderRadius={0}
+                        id={`${field}.net`}
+                        name={`${field}.net`}
+                        value={getFormNet()}
+                        onChange={({target: {value}}) => setFormNet(parseAndRoundFloat(value))}
+                        onBlur={handleBlur}
                         placeholder={'Net'}
+                        borderRadius={0}
                     />
                 </NumberInput>
                 <Select
                     w={48}
                     borderRadius={0}
-                    disabled={disableVat}
+                    disabled={isDisabledVat}
+                    variant={'outline'}
+                    isInvalid={false}
                     value={getFormVat()}
                     onChange={({currentTarget: {value}}) => setFormVat(parseInt(value))}
                 >
@@ -110,14 +130,28 @@ export const FormMoneyInput = ({label, field, disableVat}: MoneyInputProps) => {
                     variant='filled'
                     precision={2}
                     value={localGross}
-                    onChange={(value, _) => setLocalGross(value)}
+                    isInvalid={(!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`))}
+                    isDisabled={isDisabledGross}
                 >
                     <NumberInputField
-                        borderStartRadius={0}
+                        id={`${field}.gross`}
+                        name={`${field}.gross`}
+                        value={getFormGross()}
+                        onChange={({target: {value}}) => {
+                            setLocalGross(value);
+                            setFormGross(parseAndRoundFloat(value));
+                        }}
+                        onBlur={e => {
+                            setLocalGross(getFormGross()?.toFixed(2))
+                            handleBlur(e);
+                        }}
                         placeholder={'Gross'}
+                        borderStartRadius={0}
                     />
                 </NumberInput>
             </InputGroup>
+            <FormErrorMessage>{_.get(touched, `${field}.net`) && _.get(errors, `${field}.net`)}</FormErrorMessage>
+            <FormErrorMessage>{_.get(touched, `${field}.gross`) && _.get(errors, `${field}.gross`)}</FormErrorMessage>
         </FormControl>
     )
 }
@@ -148,7 +182,6 @@ const roundFloat = (num: number, fractionalDigits: number): number => {
     return parseFloat(num.toFixed(fractionalDigits))
 }
 
-// const parseAndRoundFloat = (value: string): number | undefined => {
-//     console.log(value)
-//     return value === '' ? undefined : parseFloat(value);
-// }
+const parseAndRoundFloat = (value: string): number | undefined => {
+    return value === '' || !value ? undefined : parseFloat(value);
+}

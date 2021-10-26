@@ -11,7 +11,7 @@ export const ExpenseTable = () => {
 
 
     useEffect(() => {
-        updateExpenses()
+        updateExpenses();
     }, []);
 
 
@@ -35,7 +35,20 @@ export const ExpenseTable = () => {
                         </Tr>
                     )
                     : expenses.map(({
-                                        id, name, isPrivate, amount: {net, gross, vat, currency}, mailConfig,
+                                        id,
+                                        name,
+                                        isPrivate,
+                                        amount: {
+                                            net,
+                                            gross,
+                                            vat,
+                                            currency
+                                        },
+                                        mailConfig,
+                                        date: {
+                                            start,
+                                            end
+                                        }
                                     }, index) => (
                         <Tr key={index.toString()}>
                             <Td>{name}</Td>
@@ -50,7 +63,19 @@ export const ExpenseTable = () => {
                                             setRequested({
                                                 id,
                                                 request: {
-                                                    name, amount: {net, gross, vat, currency}, mailConfig, isPrivate
+                                                    name,
+                                                    amount:
+                                                        {
+                                                            net,
+                                                            gross,
+                                                            vat,
+                                                            currency},
+                                                    mailConfig,
+                                                    isPrivate,
+                                                    date: {
+                                                        start,
+                                                        end
+                                                    }
                                                 },
                                             });
                                             onOpen();
