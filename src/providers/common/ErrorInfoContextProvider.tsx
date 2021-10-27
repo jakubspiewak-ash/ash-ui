@@ -1,10 +1,12 @@
 import { createContext, useContext } from 'react';
+
 import { useToast } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
+
 import { HasChildren } from '../../components/common/common.types';
 
 interface ErrorInfoContextType {
-    addErrorToast: (error: AxiosError) => void;
+  addErrorToast: (error: AxiosError) => void;
 }
 
 const ErrorInfoContext = createContext<ErrorInfoContextType>({
@@ -17,8 +19,8 @@ export const useErrorInfoContext = () => useContext<ErrorInfoContextType>(ErrorI
 export const ErrorInfoContextProvider = ({ children }: HasChildren) => {
   const toast = useToast({
     position: 'top-left',
-    title: 'Something goes wrong',
     status: 'error',
+    title: 'Something goes wrong',
   });
 
   const addErrorToast = (error: AxiosError) => {

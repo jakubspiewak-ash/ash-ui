@@ -1,0 +1,204 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "jsx-max-len",
+    "@babel",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxEOF": 0
+      }
+    ],
+    "react/destructuring-assignment": 0,
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": 0,
+    "react/jsx-closing-bracket-location": 1,
+    "react/jsx-curly-newline": 0,
+    "react/jsx-indent": "off",
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "arrow": true,
+        "return": true,
+        "declaration": true
+      }
+    ],
+    "react/no-array-index-key": 0,
+    "react/no-unused-prop-types": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/jsx-max-props-per-line": [
+      2,
+      {
+        "maximum": 1
+      }
+    ],
+    "react/jsx-indent-props": [
+      2,
+      2
+    ],
+    "react/jsx-first-prop-new-line": [
+      2,
+      "multiline"
+    ],
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-max-len/jsx-max-len": [
+      2,
+      {
+        "lineMaxLength": 100,
+        "tabWidth": 2,
+        "maxAttributesPerLine": 1
+      }
+    ],
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-empty-interface": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-redeclare": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/prefer-as-const": 0,
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "array-bracket-spacing": 0,
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "curly": "error",
+    "import/named": 0,
+    "implicit-arrow-linebreak": 0,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": 0,
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */
+          "caseInsensitive": true
+          /* ignore case. Options: [true, false] */
+        },
+        "newlines-between": "always"
+      }
+    ],
+    "react/jsx-sort-props": [
+      "error", {
+      "callbacksLast": true,
+      "shorthandFirst": false,
+      "shorthandLast": true,
+      "ignoreCase": false,
+      "noSortAlphabetically": false,
+      "reservedFirst": ["key", "ref"]
+    }],
+    "sort-keys": [
+      "error",
+      "asc",
+      {
+        "caseSensitive": true,
+        "natural": false,
+        "minKeys": 2
+      }
+    ],
+    "indent": "off",
+    "no-alert": 0,
+    "no-case-declarations": 0,
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "__typename"
+        ]
+      }
+    ],
+    "no-unused-expressions": "warn",
+    "no-unused-vars": "warn",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "prefer-destructuring": 0,
+    "quotes": "off",
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}

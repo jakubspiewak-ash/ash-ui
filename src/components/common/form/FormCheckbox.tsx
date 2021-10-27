@@ -1,4 +1,4 @@
-import {Checkbox, FormControl, FormLabel, Input} from '@chakra-ui/react';
+import { Checkbox } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 import _ from 'lodash';
 
@@ -12,12 +12,12 @@ export const FormCheckbox = ({ name, label }: FormCheckboxProps) => {
 
   return (
     <Checkbox
-        mb={2}
-        isChecked={_.get(values, name)}
-        onChange={({currentTarget: {checked}}) => setFieldValue(name, checked)}
-        placeholder={label}
+      isChecked={_.get(values, name)}
+      mb={2}
+      placeholder={label}
+      onChange={({ currentTarget: { checked } }) => setFieldValue(name, checked)}
     >
-        {label}
+      {label}
     </Checkbox>
   );
 };

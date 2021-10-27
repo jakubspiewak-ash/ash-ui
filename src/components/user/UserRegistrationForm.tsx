@@ -1,10 +1,11 @@
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { FormInput } from '../common/form/FormInput';
-import { ApiUserCredentials } from '../../services/api.types';
-import { SubmitButton } from '../common/form/SubmitButton';
-import { saveUser } from '../../services/user.service';
+
 import { useErrorInfoContext } from '../../providers/common/ErrorInfoContextProvider';
+import { ApiUserCredentials } from '../../services/api.types';
+import { saveUser } from '../../services/user.service';
+import { FormInput } from '../common/form/FormInput';
+import { SubmitButton } from '../common/form/SubmitButton';
 
 const initialFormValue: ApiUserCredentials = {
   login: '',
@@ -21,13 +22,20 @@ export const UserRegistrationForm = () => {
 
   return (
     <Formik
-      enableReinitialize
       initialValues={initialFormValue}
+      enableReinitialize
       onSubmit={onSubmit}
     >
       <>
-        <FormInput field="login" label="Login" />
-        <FormInput field="password" label="Password" type="password" />
+        <FormInput
+          field="login"
+          label="Login"
+        />
+        <FormInput
+          field="password"
+          label="Password"
+          type="password"
+        />
         <SubmitButton />
       </>
     </Formik>

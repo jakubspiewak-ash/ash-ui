@@ -1,6 +1,6 @@
-import {
-  createContext, useContext, useEffect, useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { HasChildren } from '../../components/common/common.types';
 import { ApiUserCredentials } from '../../services/api.types';
 import {
   clearStorageToken,
@@ -9,13 +9,13 @@ import {
   setStorageToken,
   updateAuthorizationHeader,
 } from '../../services/auth.service';
+
 import { useErrorInfoContext } from './ErrorInfoContextProvider';
-import { HasChildren } from '../../components/common/common.types';
 
 interface AuthContextType {
-    authenticated: boolean,
-    login: (credentials: ApiUserCredentials) => Promise<void>,
-    logout: () => void,
+  authenticated: boolean,
+  login: (credentials: ApiUserCredentials) => Promise<void>,
+  logout: () => void,
 }
 
 const AuthContext = createContext<AuthContextType>({

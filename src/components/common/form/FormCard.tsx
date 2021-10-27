@@ -1,5 +1,7 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+
+import { Box, Flex } from '@chakra-ui/react';
+
 import { HasChildren } from '../common.types';
 
 export interface FormCardProps extends HasChildren {
@@ -7,9 +9,20 @@ export interface FormCardProps extends HasChildren {
 }
 
 export const FormCard = ({ children, bellow }: FormCardProps) => (
-  <Flex width="full" height="full" align="center" justifyContent="center">
+  <Flex
+    align="center"
+    height="full"
+    justifyContent="center"
+    width="full"
+  >
     <Box p={2}>
-      <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Box
+        borderRadius={8}
+        borderWidth={1}
+        boxShadow="lg"
+        maxWidth="500px"
+        p={8}
+      >
         {children}
       </Box>
       {bellow}

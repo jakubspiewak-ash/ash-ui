@@ -1,17 +1,16 @@
-import {ExpenseTable} from '../components/expense/ExpenseTable';
-import {ExpenseContextProvider} from '../providers/ExpenseContextProvider';
-import {ExpenseModal} from '../components/expense/ExpenseModal';
-import {ExpenseAddButton} from '../components/expense/ExpenseAddButton';
-import {ExpenseRefreshButton} from "../components/expense/ExpenseRefreshButton";
+import React from "react";
 
-export const ExpensePage = () => {
+import { ExpenseAddButton } from '../components/expense/ExpenseAddButton';
+import { ExpenseModal } from '../components/expense/ExpenseModal';
+import { ExpenseRefreshButton } from '../components/expense/ExpenseRefreshButton';
+import { ExpenseTable } from '../components/expense/ExpenseTable';
+import { ExpenseContextProvider } from '../providers/ExpenseContextProvider';
 
-    return (
-        <ExpenseContextProvider>
-            <ExpenseTable/>
-            <ExpenseModal/>
-            <ExpenseAddButton/>
-            <ExpenseRefreshButton/>
-        </ExpenseContextProvider>
-    );
-};
+export const ExpensePage = () => (
+    <ExpenseContextProvider>
+        <ExpenseTable/>
+        <ExpenseModal/>
+        <ExpenseAddButton/>
+        <ExpenseRefreshButton/>
+    </ExpenseContextProvider>
+);

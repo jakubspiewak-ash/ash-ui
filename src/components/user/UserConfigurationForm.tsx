@@ -1,16 +1,19 @@
+import { useEffect, useState } from 'react';
+
 import { Heading, Stack } from '@chakra-ui/react';
 import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
-import { UserConfigurationMailForm } from './UserConfigurationMailForm';
-import { SubmitButton } from '../common/form/SubmitButton';
+
 import { ApiUserConfiguration } from '../../services/api.types';
 import { fetchUserConfiguration, saveUserConfiguration } from '../../services/user.service';
+import { SubmitButton } from '../common/form/SubmitButton';
+
+import { UserConfigurationMailForm } from './UserConfigurationMailForm';
 
 const emptyForm: ApiUserConfiguration = {
   mail: {
     address: '',
-    password: '',
     host: '',
+    password: '',
     port: 0,
   },
 };
@@ -34,8 +37,8 @@ export const UserConfigurationForm = () => {
     <Stack>
       <Heading>Configuration</Heading>
       <Formik<ApiUserConfiguration>
-        enableReinitialize
         initialValues={formValue}
+        enableReinitialize
         onSubmit={(values) => saveConfiguration(values)}
       >
         <>

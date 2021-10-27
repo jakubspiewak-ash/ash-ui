@@ -1,9 +1,8 @@
-import {
-  Box, ChakraProvider, Container, theme,
-} from '@chakra-ui/react';
-import { AuthContextProvider } from './providers/common/AuthContextProvider';
+import { Box, ChakraProvider, Container, theme } from '@chakra-ui/react';
+
 import { AppRouting } from './components/AppRouting';
 import { ThemeToggle } from './components/common/ThemeToggle';
+import { AuthContextProvider } from './providers/common/AuthContextProvider';
 import { ErrorInfoContextProvider } from './providers/common/ErrorInfoContextProvider';
 
 function App() {
@@ -12,11 +11,12 @@ function App() {
       <ErrorInfoContextProvider>
         <AuthContextProvider>
           <Container>
-            <Box __css={{
-              position: 'absolute',
-              top: '2rem',
-              right: '2rem',
-            }}
+            <Box
+              __css={{
+                position: 'absolute',
+                right: '2rem',
+                top: '2rem',
+              }}
             >
               <ThemeToggle />
             </Box>

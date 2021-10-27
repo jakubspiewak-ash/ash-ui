@@ -1,8 +1,9 @@
 import { Formik } from 'formik';
-import { SubmitButton } from '../common/form/SubmitButton';
+
+import { useAuthContext } from '../../providers/common/AuthContextProvider';
 import { ApiUserCredentials } from '../../services/api.types';
 import { FormInput } from '../common/form/FormInput';
-import { useAuthContext } from '../../providers/common/AuthContextProvider';
+import { SubmitButton } from '../common/form/SubmitButton';
 
 const emptyForm: ApiUserCredentials = {
   login: '',
@@ -14,13 +15,20 @@ export const UserLoginForm = () => {
 
   return (
     <Formik
-      enableReinitialize
       initialValues={emptyForm}
+      enableReinitialize
       onSubmit={login}
     >
       <>
-        <FormInput field="login" label="Login" />
-        <FormInput field="password" label="Password" type="password" />
+        <FormInput
+          field="login"
+          label="Login"
+        />
+        <FormInput
+          field="password"
+          label="Password"
+          type="password"
+        />
         <SubmitButton>Sign in</SubmitButton>
       </>
     </Formik>

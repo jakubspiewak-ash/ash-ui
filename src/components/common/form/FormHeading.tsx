@@ -5,7 +5,10 @@ export interface FormHeadingProps {
 }
 
 export const FormHeading = ({ children }: FormHeadingProps) => (
-  <Box textAlign="center" mb={4}>
+  <Box
+    mb={4}
+    textAlign="center"
+  >
     <Heading>{children}</Heading>
   </Box>
 );

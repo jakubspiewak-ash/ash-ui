@@ -1,19 +1,19 @@
-import { Box, IconButton, useColorMode } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Box, IconButton, useColorMode } from '@chakra-ui/react';
 
 export const ThemeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
-      textAlign="right"
-      py={4}
       mr={12}
+      py={4}
+      textAlign="right"
     >
       <IconButton
-        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-        onClick={toggleColorMode}
-        variant="ghost"
         aria-label="theme-button"
+        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        variant="ghost"
+        onClick={toggleColorMode}
       />
     </Box>
   );
