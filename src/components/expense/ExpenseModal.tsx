@@ -41,6 +41,7 @@ const validationSchema = yup.object({
             }),
         start: yup.date().optional(),
     }),
+    isPrivate: yup.boolean().required(),
     mailConfig: yup.object({
         attachmentPattern: yup.string().required('Attachment pattern is required'),
         mailAddress: yup.string()
