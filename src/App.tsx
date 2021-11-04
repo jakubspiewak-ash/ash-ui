@@ -10,7 +10,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <ErrorInfoContextProvider>
         <AuthContextProvider>
-          <Container>
+          <Container maxWidth={'60rem'}>
             <Box
               __css={{
                 position: 'absolute',

@@ -3,8 +3,11 @@ import * as yup from "yup";
 
 import { useErrorInfoContext } from '../../providers/common/ErrorInfoContextProvider';
 import { ExpenseFormType, useExpenseContext } from '../../providers/ExpenseContextProvider';
+import { ApiExpenseRequest } from "../../services/api.types";
+import { saveExpenses, updateExpense } from "../../services/expense.service";
 
 import { ExpenseForm } from './ExpenseForm';
+
 
 const emptyFormValue: ExpenseFormType = {
     amount: {
@@ -56,12 +59,12 @@ const validationSchema = yup.object({
 
 export const ExpenseModal = () => {
     const { addErrorToast } = useErrorInfoContext();
-    const { requested, updateExpenses } = useExpenseContext();
-
+    const { requested, updateExpenses, modal: { onClose } } = useExpenseContext();
     const onFormSubmit = (request: ExpenseFormType) => {
-        // eslint-disable-next-line no-console
-        console.log(request);
-        // (requested?.id ? updateExpense(requested.id, request) : saveExpenses(request)).then(updateExpenses).catch(addErrorToast);
+        (requested?.id ?
+                updateExpense(requested.id, request as ApiExpenseRequest) :
+                saveExpenses(request as ApiExpenseRequest)
+        ).then(updateExpenses).then(onClose).catch(addErrorToast);
     };
 
     return (

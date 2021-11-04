@@ -36,7 +36,7 @@ export interface ApiExpenseResponse {
     amount: Amount,
     name: string,
     isPrivate: boolean,
-    date: DateRange,
+    date?: DateRange,
     mailConfig: ApiExpenseMailConfig | null;
 }
 
