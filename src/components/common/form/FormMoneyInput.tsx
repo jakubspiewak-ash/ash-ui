@@ -26,7 +26,7 @@ interface MoneyInputProps {
     isDisabledGross?: boolean,
 }
 
-const roundFloat = (num: number, fractionalDigits: number): number => parseFloat(num.toFixed(fractionalDigits));
+// const roundFloat = (num: number, fractionalDigits: number): number => parseFloat(num.toFixed(fractionalDigits));
 const parseAndRoundFloat = (value: string): number | undefined => value === '' || !value ? undefined : parseFloat(value);
 
 const renderCurrencyOption = (currency: string) => {
@@ -106,7 +106,9 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
 
     useEffect(() => {
         const formNet = getFormNet();
-        if (formNet) {setLocalNet(formNet.toFixed(2));}
+        if (formNet) {
+            setLocalNet(formNet.toFixed(2));
+        }
     }, []);
 
     return (
@@ -145,6 +147,8 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                       borderRadius={0}
                       id={`${field}.net`}
                       name={`${field}.net`}
+                      paddingInlineEnd={2}
+                      paddingInlineStart={2}
                       placeholder={'Net'}
                       value={getFormNet()}
                       onBlur={(e) => {
@@ -176,9 +180,11 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                   variant='filled'
                 >
                     <NumberInputField
-                      borderStartRadius={0}
+                      borderStartRadius={4}
                       id={`${field}.gross`}
                       name={`${field}.gross`}
+                      paddingInlineEnd={2}
+                      paddingInlineStart={2}
                       placeholder={'Gross'}
                       value={getFormGross()}
                       onBlur={(e) => {

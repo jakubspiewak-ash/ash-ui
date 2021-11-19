@@ -10,12 +10,15 @@ function App() {
     <ChakraProvider theme={theme}>
       <ErrorInfoContextProvider>
         <AuthContextProvider>
-          <Container maxWidth={'60rem'}>
+          <Container
+            maxWidth={'60rem'}
+            mt={8}
+          >
             <Box
               __css={{
                 position: 'absolute',
-                right: '2rem',
-                top: '2rem',
+                right: '1rem',
+                top: '1rem',
               }}
             >
               <ThemeToggle />

@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-const API_ENDPOINT = 'http://localhost:8080';
-
+// const API_ENDPOINT = 'http://localhost:8080';
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8080';
 export const ApiClient = axios.create({
     baseURL: API_ENDPOINT,
 });
@@ -13,14 +13,18 @@ function isIsoDateString(value: any): boolean {
 }
 
 export function handleDates(body: any) {
-    if (body === null || body === undefined || typeof body !== "object")
-        {return body;}
+    if (body === null || body === undefined || typeof body !== "object") {
+        return body;
+    }
 
     for (const key of Object.keys(body)) {
         const value = body[key];
 
-        if (isIsoDateString(value)) {body[key] = new Date(value);}
-        else if (typeof value === "object") {handleDates(value);}
+        if (isIsoDateString(value)) {
+            body[key] = new Date(value);
+        } else if (typeof value === "object") {
+            handleDates(value);
+        }
     }
 }
 

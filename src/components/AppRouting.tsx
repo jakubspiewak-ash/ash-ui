@@ -38,7 +38,7 @@ export const AppRouting = () => {
           <ExpensePage />
           <Button
             my={4}
-            onClick={() => logout()}
+            onClick={logout}
           >
             Logout
           </Button>

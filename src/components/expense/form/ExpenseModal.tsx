@@ -1,10 +1,10 @@
 import { Formik } from 'formik';
 import * as yup from "yup";
 
-import { useErrorInfoContext } from '../../providers/common/ErrorInfoContextProvider';
-import { ExpenseFormType, useExpenseContext } from '../../providers/ExpenseContextProvider';
-import { ApiExpenseRequest } from "../../services/api.types";
-import { saveExpenses, updateExpense } from "../../services/expense.service";
+import { useErrorInfoContext } from '../../../providers/common/ErrorInfoContextProvider';
+import { ExpenseFormType, useExpenseContext } from '../../../providers/ExpenseContextProvider';
+import { ApiExpenseRequest } from "../../../services/api.types";
+import { saveExpenses, updateExpense } from "../../../services/expense.service";
 
 import { ExpenseForm } from './ExpenseForm';
 
@@ -59,12 +59,15 @@ const validationSchema = yup.object({
 
 export const ExpenseModal = () => {
     const { addErrorToast } = useErrorInfoContext();
-    const { requested, updateExpenses, modal: { onClose } } = useExpenseContext();
+    const { requested, updateData, modal: { onClose } } = useExpenseContext();
     const onFormSubmit = (request: ExpenseFormType) => {
         (requested?.id ?
                 updateExpense(requested.id, request as ApiExpenseRequest) :
                 saveExpenses(request as ApiExpenseRequest)
-        ).then(updateExpenses).then(onClose).catch(addErrorToast);
+        )
+            .then(() => updateData({ month: new Date().getMonth() + 1, year: new Date().getFullYear() }))
+            .then(onClose)
+            .catch(addErrorToast);
     };
 
     return (

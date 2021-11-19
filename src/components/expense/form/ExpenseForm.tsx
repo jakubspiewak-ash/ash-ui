@@ -17,23 +17,24 @@ import {
 } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 
-import { useExpenseContext } from '../../providers/ExpenseContextProvider';
-import { ApiExpenseRequest } from '../../services/api.types';
-import { FormDateRangeInput } from '../common/form/FormDateRangeInput';
-import { FormInput } from '../common/form/FormInput';
-import { FormMoneyInput } from '../common/form/FormMoneyInput';
-import { FormSwitch } from '../common/form/FormSwitch';
-import { SubmitButton } from '../common/form/SubmitButton';
+import { useExpenseContext } from '../../../providers/ExpenseContextProvider';
+import { ApiExpenseRequest } from '../../../services/api.types';
+import { FormDateRangeInput } from '../../common/form/FormDateRangeInput';
+import { FormInput } from '../../common/form/FormInput';
+import { FormMoneyInput } from '../../common/form/FormMoneyInput';
+import { FormSwitch } from '../../common/form/FormSwitch';
+import { SubmitButton } from '../../common/form/SubmitButton';
 
 export const ExpenseForm = () => {
     const [initialized, setInitialized] = useState(false);
     const [isMailConfigEnabled, setIsMailConfigEnabled] = useState(false);
 
-    const { updateExpenses, requested, setRequested, modal: { isOpen, onClose } } = useExpenseContext();
+    const { requested, modal: { isOpen, onClose } } = useExpenseContext();
 
-    const { setFieldValue, resetForm, values, errors, setErrors } = useFormikContext<ApiExpenseRequest>();
-    // eslint-disable-next-line no-console
-    console.log('RENDER');
+    const { setFieldValue, resetForm, values, setErrors } = useFormikContext<ApiExpenseRequest>();
+
+    const onMailConfigToggle = () => !values.isPrivate && setIsMailConfigEnabled(!isMailConfigEnabled);
+
     useEffect(() => {
         setIsMailConfigEnabled(!!requested?.request.mailConfig);
     }, [requested]);
@@ -71,9 +72,10 @@ export const ExpenseForm = () => {
     return (
         <Modal
           isOpen={isOpen}
+          size={'xl'}
           onClose={onClose}
         >
-            <ModalOverlay/>
+            <ModalOverlay backdropBlur={10}/>
             <ModalContent>
                 <ModalHeader>
                     {requested ? 'Edit expense' : 'Add expense'}
@@ -90,6 +92,7 @@ export const ExpenseForm = () => {
                     />
                     <FormMoneyInput
                       field={'amount'}
+                      isDisabledGross={values.isPrivate}
                       isDisabledVat={values.isPrivate}
                       label={'Amount'}
                     />
@@ -103,9 +106,7 @@ export const ExpenseForm = () => {
                     >
                         <AccordionItem isDisabled={values.isPrivate}>
                             <h2>
-                                <AccordionButton
-                                  onClick={() => !values.isPrivate && setIsMailConfigEnabled(!isMailConfigEnabled)}
-                                >
+                                <AccordionButton onClick={onMailConfigToggle}>
                                     <Text
                                       flex={1}
                                       fontSize='xl'
@@ -117,12 +118,10 @@ export const ExpenseForm = () => {
                             </h2>
                             <AccordionPanel>
                                 <FormInput
-                                  disabled={(!isMailConfigEnabled && initialized) || values.isPrivate}
                                   field='mailConfig.mailAddress'
                                   label='Mail address'
                                 />
                                 <FormInput
-                                  disabled={(!isMailConfigEnabled && initialized) || values.isPrivate}
                                   field='mailConfig.attachmentPattern'
                                   label='Attachment Pattern'
                                 />
@@ -131,13 +130,7 @@ export const ExpenseForm = () => {
                     </Accordion>
                 </ModalBody>
                 <ModalFooter>
-                    <SubmitButton
-                      afterSubmitting={() => {
-                            // onClose();
-                            // setRequested(undefined);
-                            // updateExpenses();
-                        }}
-                    />
+                    <SubmitButton/>
                 </ModalFooter>
             </ModalContent>
         </Modal>

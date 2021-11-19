@@ -19,31 +19,43 @@ export interface ApiExpenseMailConfig {
     attachmentPattern: string;
 }
 
-export interface Amount {
+export interface ApiExpenseAmount {
     net: number,
     gross: number,
     vat: number,
     currency: string
 }
 
-export interface DateRange {
+export interface ApiExpenseDateRange {
     start?: Date,
     end?: Date
 }
 
-export interface ApiExpenseResponse {
+export interface ApiExpense {
     id: string,
-    amount: Amount,
+    amount: ApiExpenseAmount,
     name: string,
     isPrivate: boolean,
-    date?: DateRange,
+    date: ApiExpenseDateRange,
     mailConfig: ApiExpenseMailConfig | null;
 }
 
+export interface ApiExpenseSummary {
+    amount: ApiExpenseAmount,
+    date: ApiExpenseDateRange,
+    currency: ApiExpenseAmount[]
+}
+
+export interface ApiExpenseGetResponse {
+    expenses: ApiExpense[],
+    summary: ApiExpenseSummary
+}
+
+
 export interface ApiExpenseRequest {
     name: string,
-    amount: Amount,
+    amount: ApiExpenseAmount,
     isPrivate: boolean,
-    date: DateRange,
+    date: ApiExpenseDateRange,
     mailConfig: ApiExpenseMailConfig | null;
 }

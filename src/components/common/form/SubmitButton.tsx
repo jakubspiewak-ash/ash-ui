@@ -16,13 +16,14 @@ export const SubmitButton = ({ children, afterSubmitting }: SubmitButtonProps) =
     const handleSubmitForm = async () => {
         setIsLoading(true);
         submitForm()
-            .then(() => setIsLoading(false))
+            .then(() => setTimeout(() => setIsLoading(false), 500))
             .then(() => afterSubmitting?.());
     };
 
     return (
         <Button
           boxShadow={'xl'}
+          disabled={isLoading}
           p={4}
           variant="outline"
           width="full"
