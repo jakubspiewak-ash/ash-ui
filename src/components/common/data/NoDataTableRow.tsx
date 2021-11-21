@@ -1,4 +1,4 @@
-import { Heading, Td, Tr } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 interface NoDataTableRowProps {
     colsNumber: number
@@ -6,10 +6,8 @@ interface NoDataTableRowProps {
 
 export const NoDataTableRow = ({ colsNumber }: NoDataTableRowProps) => {
     return (
-        <Tr>
-            <Td colSpan={colsNumber}>
-                <Heading textAlign='center'>No data</Heading>
-            </Td>
-        </Tr>
+        <Box colSpan={colsNumber}>
+            <Heading textAlign='center'>No data</Heading>
+        </Box>
     );
 };

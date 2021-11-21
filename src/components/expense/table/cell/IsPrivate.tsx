@@ -1,45 +1,44 @@
-import { useMemo } from "react";
+import React from "react";
 
 import { Icon } from "@chakra-ui/icons";
-import { Td, Tooltip } from "@chakra-ui/react";
+import { Tooltip } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 import { MdAccountBalance, MdAccountCircle } from "react-icons/md";
 
-import { ApiExpense } from "../../../../services/api.types";
+import { ExpenseGridItemProps } from "./index";
 
+interface TooltipIconProps {
+    label: string,
+    icon: IconType
+}
 
-export const IsPrivate = ({ isPrivate }: ApiExpense) => {
-    const IsPrivateIcon = useMemo(() => {
-        return isPrivate ?
-            <Tooltip
-              label={'Private'}
-              hasArrow
-            >
+const TooltipIcon = ({ icon, label }: TooltipIconProps) => {
+    return (
+        <Tooltip
+          label={label}
+          hasArrow
+        >
                 <span>
                     <Icon
-                      as={MdAccountCircle}
+                      as={icon}
                       h={6}
                       w={6}
                     />
                 </span>
-            </Tooltip>
-            :
-            <Tooltip
-              label={'Company'}
-              hasArrow
-            >
-                <span>
-            <Icon
-              as={MdAccountBalance}
-              h={6}
-              w={6}
-            />
-                </span>
-            </Tooltip>;
-    }, [isPrivate]);
-
-    return (
-        <Td textAlign='center'>
-            {IsPrivateIcon}
-        </Td>
+        </Tooltip>
     );
+};
+
+export const IsPrivate = (props: ExpenseGridItemProps) => {
+    const { expense: { isPrivate } } = props;
+
+    return isPrivate ?
+        <TooltipIcon
+          icon={MdAccountCircle}
+          label={'Private'}
+        /> :
+        <TooltipIcon
+          icon={MdAccountBalance}
+          label={'Company'}
+        />;
 };

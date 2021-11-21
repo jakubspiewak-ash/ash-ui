@@ -1,9 +1,11 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
-import { Box, Grid, GridItem, Td, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 
 import { ApiExpense } from "../../../../services/api.types";
 import { numberWithSpaces } from "../../summary/CurrencySummary";
+
+import { ExpenseGridItemProps } from "./index";
 
 const CompanyAmount = ({ amount: { net, gross } }: ApiExpense) => {
     return (
@@ -22,10 +24,10 @@ const CompanyAmount = ({ amount: { net, gross } }: ApiExpense) => {
                     {numberWithSpaces(net)}
                 </Text>
             </GridItem>
-           <GridItem as={"b"}>Gross:</GridItem>
+            <GridItem as={"b"}>Gross:</GridItem>
             <GridItem>
-                <Text 
-                  pl={2} 
+                <Text
+                  pl={2}
                   whiteSpace={'nowrap'}
                 >
                     {numberWithSpaces(gross)}
@@ -41,15 +43,13 @@ const PrivateAmount = ({ amount: { net } }: ApiExpense) => {
     );
 };
 
-export const Amount = (expense: ApiExpense) => {
+export const Amount = ({ expense }: ExpenseGridItemProps) => {
     const { isPrivate } = expense;
     const AmountComponent = useMemo(() => {
         return isPrivate ? <PrivateAmount {...expense}/> : <CompanyAmount {...expense}/>;
     }, [isPrivate]);
 
     return (
-        <Td isNumeric>
-            {AmountComponent}
-        </Td>
+        <>{AmountComponent}</>
     );
 };

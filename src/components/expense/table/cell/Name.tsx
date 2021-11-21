@@ -1,9 +1,16 @@
-import { Td } from "@chakra-ui/react";
+import { GridItem } from "@chakra-ui/react";
 
-import { ApiExpense } from "../../../../services/api.types";
+import { ExpenseGridItemProps } from "./index";
 
-export const Name = ({ name }: ApiExpense) => {
+
+export const Name = ({ expense: { name } }: ExpenseGridItemProps) => {
     return (
-        <Td fontSize={24}>{name}</Td>
+        <GridItem
+          fontSize={24}
+          lineHeight={1}
+          pl={4}
+        >
+            {name}
+        </GridItem>
     );
 };

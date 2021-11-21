@@ -1,9 +1,10 @@
-import { Td } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
-import { ApiExpense } from "../../../../services/api.types";
+import { ExpenseGridItemProps } from "./index";
 
-export const Currency = ({ amount: { currency } }: ApiExpense) => {
+export const Currency = ({ expense }: ExpenseGridItemProps) => {
+    const { amount: { currency } } = expense;
     return (
-        <Td>{currency}</Td>
+        <Box> {currency}</Box>
     );
 };

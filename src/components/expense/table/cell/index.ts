@@ -1,19 +1,19 @@
-import { Actions } from "./Actions";
+import { ApiExpense } from "../../../../services/api.types";
+
 import { Amount } from "./Amount";
 import { Currency } from "./Currency";
 import { Date } from "./Date";
 import { IsPrivate } from "./IsPrivate";
-import { MailConfig } from "./MailConfig";
 import { Name } from "./Name";
-import { Vat } from "./Vat";
+
+export interface ExpenseGridItemProps {
+    expense: ApiExpense,
+}
 
 export {
-    Actions,
     Amount,
     Currency,
     Date,
     IsPrivate,
-    MailConfig,
     Name,
-    Vat,
 };
