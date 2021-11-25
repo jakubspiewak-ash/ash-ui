@@ -12,7 +12,7 @@ interface TooltipIconProps {
     icon: IconType
 }
 
-const TooltipIcon = ({ icon, label }: TooltipIconProps) => {
+export const TooltipIcon = ({ icon, label }: TooltipIconProps) => {
     return (
         <Tooltip
           label={label}

@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 
 import { ApiExpense } from "../../../../services/api.types";
-import { numberWithSpaces } from "../../summary/CurrencySummary";
+import { formatNumber } from "../../summary/CurrencySummary";
 
 import { ExpenseGridItemProps } from "./index";
 
@@ -21,7 +21,7 @@ const CompanyAmount = ({ amount: { net, gross } }: ApiExpense) => {
                   pl={2}
                   whiteSpace={'nowrap'}
                 >
-                    {numberWithSpaces(net)}
+                    {formatNumber(net)}
                 </Text>
             </GridItem>
             <GridItem as={"b"}>Gross:</GridItem>
@@ -30,7 +30,7 @@ const CompanyAmount = ({ amount: { net, gross } }: ApiExpense) => {
                   pl={2}
                   whiteSpace={'nowrap'}
                 >
-                    {numberWithSpaces(gross)}
+                    {formatNumber(gross)}
                 </Text>
             </GridItem>
         </Grid>
@@ -39,7 +39,7 @@ const CompanyAmount = ({ amount: { net, gross } }: ApiExpense) => {
 
 const PrivateAmount = ({ amount: { net } }: ApiExpense) => {
     return (
-        <Box>{numberWithSpaces(net)}</Box>
+        <Box>{formatNumber(net)}</Box>
     );
 };
 

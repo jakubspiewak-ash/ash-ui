@@ -1,33 +1,24 @@
 import { ReactNode } from "react";
 
-import { GridItem, ScaleFade } from "@chakra-ui/react";
+import { GridItem } from "@chakra-ui/react";
 
 interface ExpenseGridCellProps {
     children: ReactNode,
     size?: number,
-    hidden?: boolean
     align?: 'start' | 'center' | 'end'
 }
 
 export const ExpenseGridCell = (props: ExpenseGridCellProps) => {
-    const { children, hidden, size, align } = props;
+    const { children, size, align } = props;
 
     return (
         <GridItem
           colSpan={size || 1}
           display={'flex'}
+          justifyContent={align}
           p={2}
         >
-            <ScaleFade
-              in={!hidden}
-              style={{
-                    display: 'flex',
-                    justifyContent: align,
-                    width: '100%',
-                }}
-            >
-                {children}
-            </ScaleFade>
+            {children}
         </GridItem>
     );
 };

@@ -4,7 +4,7 @@ import { useExpenseContext } from "../../../providers/ExpenseContextProvider";
 import { ApiExpenseAmount, ApiExpenseDateRange } from "../../../services/api.types";
 import { DateMonthInput } from "../../common/DateMonthInput";
 
-import { numberWithSpaces } from "./CurrencySummary";
+import { formatNumber } from "./CurrencySummary";
 
 export interface MainSummaryProps {
     amount: ApiExpenseAmount,
@@ -23,14 +23,14 @@ export const MainSummary = ({ amount: { net, gross, currency, vat } }: MainSumma
             <Center>
                 <VStack>
                     <StatLabel>All expenses</StatLabel>
-                    <StatNumber>{`${currency} | ${numberWithSpaces(gross)}`}</StatNumber>
+                    <StatNumber>{`${currency} | ${formatNumber(gross)}`}</StatNumber>
                     <StatHelpText>
                         <SimpleGrid
                           columnGap={8}
                           columns={2}
                         >
-                            <Text><b>Net: </b>{numberWithSpaces(net)}</Text>
-                            <Text><b>Vat: </b>{numberWithSpaces(vat)}</Text>
+                            <Text><b>Net: </b>{formatNumber(net)}</Text>
+                            <Text><b>Vat: </b>{formatNumber(vat)}</Text>
                         </SimpleGrid>
                     </StatHelpText>
                     <StatHelpText>

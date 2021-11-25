@@ -8,7 +8,7 @@ export interface CurrencySummaryProps {
 }
 
 
-export function numberWithSpaces(x: number) {
+export function formatNumber(x: number) {
     const y = x.toFixed(2);
     const parts = y.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -24,10 +24,10 @@ export const CurrencySummary = ({ currency, net, gross, vat }: ApiExpenseAmount)
           mb={3}
           p={3}
         >
-            <StatNumber>{`${currency} | ${numberWithSpaces(gross)}`}</StatNumber>
+            <StatNumber>{`${currency} | ${formatNumber(gross)}`}</StatNumber>
             <StatHelpText>
-                <Text><b>Net: </b>{numberWithSpaces(net)}</Text>
-                <Text><b>Vat: </b>{numberWithSpaces(vat)}</Text>
+                <Text><b>Net: </b>{formatNumber(net)}</Text>
+                <Text><b>Vat: </b>{formatNumber(vat)}</Text>
             </StatHelpText>
         </Stat>
     );

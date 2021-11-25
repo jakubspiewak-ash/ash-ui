@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Grid, useBreakpointValue } from '@chakra-ui/react';
+import { Grid } from '@chakra-ui/react';
 
 import { useExpenseContext } from '../../../providers/ExpenseContextProvider';
 import { NoDataTableRow } from "../../common/data/NoDataTableRow";
 import { ExpenseSummary } from '../summary/ExpenseSummary';
 
-import { ExpenseGridRow, NAME_CELL_SIZE, ROW_SIZE } from "./ExpenseGridRow";
+import { ExpenseGridRow } from "./ExpenseGridRow";
 
 export const ExpenseGrid = () => {
     const { data: { expenses, summary }, updateData } = useExpenseContext();
@@ -15,8 +15,6 @@ export const ExpenseGrid = () => {
     useEffect(() => {
         updateData({ month: new Date().getMonth() + 1, year: new Date().getFullYear() });
     }, []);
-
-    const lessThanMd = useBreakpointValue({ base: false, md: true });
 
     const TableBodyContent = useMemo(() => {
         if (expenses.length) {
@@ -33,7 +31,7 @@ export const ExpenseGrid = () => {
                 />
             ));
         }
-        return <NoDataTableRow colsNumber={5}/>;
+        return <NoDataTableRow colsNumber={13}/>;
 
     }, [expenses, currentInfo]);
 
@@ -46,7 +44,7 @@ export const ExpenseGrid = () => {
               borderWidth={1}
               boxShadow={'md'}
               overflowX={'auto'}
-              templateColumns={`repeat(${lessThanMd ? ROW_SIZE : NAME_CELL_SIZE}, 1fr) min-content`}
+              templateColumns={`repeat(12, 1fr)`}
             >
                 {TableBodyContent}
             </Grid>

@@ -8,7 +8,7 @@ export const Name = ({ expense: { name } }: ExpenseGridItemProps) => {
         <GridItem
           fontSize={24}
           lineHeight={1}
-          pl={4}
+          pl={2}
         >
             {name}
         </GridItem>
