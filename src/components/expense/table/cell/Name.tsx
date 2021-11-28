@@ -1,6 +1,6 @@
-import { GridItem } from "@chakra-ui/react";
+import { GridItem } from '@chakra-ui/react';
 
-import { ExpenseGridItemProps } from "./index";
+import { ExpenseGridItemProps } from './index';
 
 
 export const Name = ({ expense: { name } }: ExpenseGridItemProps) => {

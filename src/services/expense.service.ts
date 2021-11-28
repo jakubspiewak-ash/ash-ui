@@ -1,4 +1,4 @@
-import { formatNumber } from "../components/common/form/FormDateRangeInput";
+import { formatNumber } from '../components/common/form/FormDateRangeInput';
 
 import { ApiExpenseGetResponse, ApiExpenseRequest } from './api.types';
 import { ApiClient } from './client.service';

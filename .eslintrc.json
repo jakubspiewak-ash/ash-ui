@@ -195,7 +195,7 @@
       "always"
     ],
     "prefer-destructuring": 0,
-    "quotes": "off",
+    "quotes": ["error", "single"],
     "semi": [
       "error",
       "always"

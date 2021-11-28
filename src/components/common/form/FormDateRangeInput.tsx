@@ -96,7 +96,7 @@ export const FormDateRangeInput = ({ label, field, disabledStart, disabledEnd }:
                 />
                 <Input
                   borderStartRadius={0}
-                  defaultValue={""}
+                  defaultValue={''}
                   disabled={disabledEnd}
                   id={`${field}.end`}
                   isInvalid={(!!_.get(errors, `${field}.end`) && !!_.get(touched, `${field}.end`))}

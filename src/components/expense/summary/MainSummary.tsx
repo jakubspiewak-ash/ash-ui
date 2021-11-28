@@ -1,10 +1,10 @@
-import { Center, SimpleGrid, Stat, StatHelpText, StatLabel, StatNumber, Text, VStack } from "@chakra-ui/react";
+import { Center, SimpleGrid, Stat, StatHelpText, StatLabel, StatNumber, Text, VStack } from '@chakra-ui/react';
 
-import { useExpenseContext } from "../../../providers/ExpenseContextProvider";
-import { ApiExpenseAmount, ApiExpenseDateRange } from "../../../services/api.types";
-import { DateMonthInput } from "../../common/DateMonthInput";
+import { useExpenseContext } from '../../../providers/ExpenseContextProvider';
+import { ApiExpenseAmount, ApiExpenseDateRange } from '../../../services/api.types';
+import { DateMonthInput } from '../../common/DateMonthInput';
 
-import { formatNumber } from "./CurrencySummary";
+import { formatNumber } from './CurrencySummary';
 
 export interface MainSummaryProps {
     amount: ApiExpenseAmount,

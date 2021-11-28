@@ -1,6 +1,6 @@
-import { FormControl, FormErrorIcon, FormLabel, Input } from "@chakra-ui/react";
-import { useFormikContext } from "formik";
-import _ from "lodash";
+import { FormControl, FormErrorIcon, FormLabel, Input } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
+import _ from 'lodash';
 
 interface FormDateInputProps {
     label: string,
@@ -15,7 +15,7 @@ export const FormDateMonthInput = ({ label, field, disabled }: FormDateInputProp
         <FormControl mb={4}>
             <FormLabel>
                 <FormErrorIcon
-                  color={"red.400"}
+                  color={'red.400'}
                   mr={2}
                 />
                 {label}

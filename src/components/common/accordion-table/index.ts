@@ -1,4 +1,4 @@
-import { AccordionTable } from "./AccordionTable";
+import { AccordionTable } from './AccordionTable';
 
 export {
     AccordionTable,

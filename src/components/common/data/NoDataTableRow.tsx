@@ -1,4 +1,4 @@
-import { GridItem, Heading } from "@chakra-ui/react";
+import { GridItem, Heading } from '@chakra-ui/react';
 
 interface NoDataTableRowProps {
     colsNumber: number

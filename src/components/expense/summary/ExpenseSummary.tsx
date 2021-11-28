@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid } from '@chakra-ui/react';
 
-import { ApiExpenseSummary } from "../../../services/api.types";
+import { ApiExpenseSummary } from '../../../services/api.types';
 
-import { CurrencySummary } from "./CurrencySummary";
-import { MainSummary } from "./MainSummary";
+import { CurrencySummary } from './CurrencySummary';
+import { MainSummary } from './MainSummary';
 
 
 export const ExpenseSummary = ({ amount, currency, date }: ApiExpenseSummary) => {

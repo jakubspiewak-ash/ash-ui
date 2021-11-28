@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-import { Grid } from "@chakra-ui/react";
+import { Grid } from '@chakra-ui/react';
 
 interface AccordionTableProps {
     children: ReactNode | ReactNode[],

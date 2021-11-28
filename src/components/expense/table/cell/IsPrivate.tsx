@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Icon } from "@chakra-ui/icons";
-import { Tooltip } from "@chakra-ui/react";
-import { IconType } from "react-icons";
-import { MdAccountBalance, MdAccountCircle } from "react-icons/md";
+import { Icon } from '@chakra-ui/icons';
+import { Tooltip } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
+import { MdAccountBalance, MdAccountCircle } from 'react-icons/md';
 
-import { ExpenseGridItemProps } from "./index";
+import { ExpenseGridItemProps } from './index';
 
 interface TooltipIconProps {
     label: string,

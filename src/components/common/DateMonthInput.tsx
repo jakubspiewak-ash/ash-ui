@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import {
     FormControl,
@@ -11,8 +11,8 @@ import {
     NumberInput,
     NumberInputField,
     NumberInputStepper,
-} from "@chakra-ui/react";
-import { AiOutlineArrowLeft, AiOutlineArrowRight, FaSearch } from "react-icons/all";
+} from '@chakra-ui/react';
+import { AiOutlineArrowLeft, AiOutlineArrowRight, FaSearch } from 'react-icons/all';
 
 interface DateInputProps {
     label: string,
@@ -46,7 +46,7 @@ export const DateMonthInput = ({ label, onSearch }: DateInputProps) => {
         <FormControl mb={4}>
             <FormLabel>
                 <FormErrorIcon
-                  color={"red.400"}
+                  color={'red.400'}
                   mr={2}
                 />
                 {label}

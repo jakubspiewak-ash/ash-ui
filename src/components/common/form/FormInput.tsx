@@ -18,11 +18,11 @@ export const FormInput = ({ field, label, type, disabled }: InputFormProps) => {
           mb={4}
         >
             <FormLabel
-              alignItems={"center"}
-              display={"flex"}
+              alignItems={'center'}
+              display={'flex'}
             >
                 <FormErrorIcon
-                  color={"red.400"}
+                  color={'red.400'}
                   mr={2}
                 />
                 {label}
