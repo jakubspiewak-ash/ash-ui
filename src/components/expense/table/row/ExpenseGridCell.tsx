@@ -13,7 +13,6 @@ export const ExpenseGridCell = (props: ExpenseGridCellProps) => {
 
     return (
         <GridItem
-          borderWidth={1}
           colSpan={size || 1}
           display={'flex'}
           justifyContent={align}

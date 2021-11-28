@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { InfoIcon } from '@chakra-ui/icons';
+import { IconButton } from '@chakra-ui/react';
+
 import * as Cell from './cell';
 import { ExpenseGridCell } from './ExpenseGridCell';
-import { ExpenseGridInfoIcon } from './ExpenseGridInfoIcon';
 import { ExpenseTableRowProps } from './ExpenseGridRow';
 import { ExpenseToolsButtons } from './ExpenseToolsButtons';
 
@@ -29,13 +31,20 @@ const InvisibleInfoRow = (props: ExpenseTableRowProps) => {
                 <Cell.Date expense={expense}/>
             </ExpenseGridCell>
             <ExpenseGridCell align={'end'}>
-                <ExpenseGridInfoIcon onClick={onInfo}/>
+                <IconButton
+                  aria-label='info'
+                  icon={<InfoIcon/>}
+                  ml={'auto'}
+                  my={3}
+                  size={'sm'}
+                  onClick={onInfo}
+                />
             </ExpenseGridCell>
         </>
     );
 };
 
-const VisibleInfoProps = (props: ExpenseTableRowProps) => {
+const VisibleInfoRow = (props: ExpenseTableRowProps) => {
     const { expense, actions } = props;
     return (
         <>
@@ -54,5 +63,5 @@ const VisibleInfoProps = (props: ExpenseTableRowProps) => {
 
 export const ExpenseGridRowBrowser = (props: ExpenseTableRowProps) => {
     const { isInfoVisible } = props;
-    return isInfoVisible ? VisibleInfoProps(props) : InvisibleInfoRow(props);
+    return isInfoVisible ? VisibleInfoRow(props) : InvisibleInfoRow(props);
 };

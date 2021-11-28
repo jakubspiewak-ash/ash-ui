@@ -1,23 +1,14 @@
 import React from 'react';
 
-import { ApiExpense } from '../../../services/api.types';
+import { InfoIcon } from '@chakra-ui/icons';
+import { IconButton } from '@chakra-ui/react';
 
 import * as Cell from './cell';
 import { ExpenseGridCell } from './ExpenseGridCell';
-import { ExpenseGridInfoIcon } from './ExpenseGridInfoIcon';
+import { ExpenseTableRowProps } from './ExpenseGridRow';
 import { ExpenseToolsButtons } from './ExpenseToolsButtons';
 
-interface ExpenseGridRowMobileProps {
-    expense: ApiExpense,
-    actions: {
-        onInfo: () => void,
-        onEdit: () => void,
-        onDelete: () => void
-    },
-    isInfoVisible: boolean
-}
-
-const InvisibleInfoRow = (props: ExpenseGridRowMobileProps) => {
+const InvisibleInfoRow = (props: ExpenseTableRowProps) => {
     const { expense, actions: { onInfo } } = props;
     return (
         <>
@@ -28,8 +19,12 @@ const InvisibleInfoRow = (props: ExpenseGridRowMobileProps) => {
               align={'end'}
               size={3}
             >
-                <ExpenseGridInfoIcon
-                  marginLeft={'auto'}
+                <IconButton
+                  aria-label='info'
+                  icon={<InfoIcon/>}
+                  ml={'auto'}
+                  my={3}
+                  size={'sm'}
                   onClick={onInfo}
                 />
             </ExpenseGridCell>
@@ -37,7 +32,7 @@ const InvisibleInfoRow = (props: ExpenseGridRowMobileProps) => {
     );
 };
 
-const VisibleInfoRow = (props: ExpenseGridRowMobileProps) => {
+const VisibleInfoRow = (props: ExpenseTableRowProps) => {
     const { expense, actions } = props;
     return (
         <>
@@ -54,7 +49,7 @@ const VisibleInfoRow = (props: ExpenseGridRowMobileProps) => {
     );
 };
 
-export const ExpenseGridRowMobile = (props: ExpenseGridRowMobileProps) => {
+export const ExpenseGridRowMobile = (props: ExpenseTableRowProps) => {
     const { isInfoVisible } = props;
     return isInfoVisible ? VisibleInfoRow(props) : InvisibleInfoRow(props);
 };

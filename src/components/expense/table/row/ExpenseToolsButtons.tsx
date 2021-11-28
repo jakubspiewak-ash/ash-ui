@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
 import { Box, IconButton } from '@chakra-ui/react';
 
-import { ExpenseGridInfoIcon } from './ExpenseGridInfoIcon';
 
 interface ExpenseToolsButtonProps {
     onInfo: () => void,
@@ -14,10 +13,11 @@ interface ExpenseToolsButtonProps {
 export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
     const { onEdit, onInfo, onDelete } = props;
     return (
-        <Box ml={'auto'}>
+        <>
             <IconButton
               aria-label='edit'
               icon={<EditIcon/>}
+              ml={'auto'}
               my={3}
               size={'sm'}
               onClick={onEdit}
@@ -26,13 +26,20 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
               aria-label='delete'
               colorScheme='red'
               icon={<DeleteIcon/>}
-              ml={1}
+              ml={3}
               my={3}
               size={'sm'}
               onClick={onDelete}
             />
-            <ExpenseGridInfoIcon onClick={onInfo}/>
-        </Box>
+            <IconButton
+              aria-label='info'
+              icon={<InfoIcon/>}
+              ml={3}
+              my={3}
+              size={'sm'}
+              onClick={onInfo}
+            />
+        </>
 
     );
 };

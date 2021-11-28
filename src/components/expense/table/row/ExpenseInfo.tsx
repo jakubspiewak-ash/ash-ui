@@ -3,9 +3,9 @@ import React, { ReactNode, useMemo } from 'react';
 import { Box, Divider, Flex, Grid, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { MdOutlineAttachFile, MdOutlineMail } from 'react-icons/all';
 
-import { ApiExpense } from '../../../services/api.types';
-import { getDatesDiff } from '../../../utils/time';
-import { formatNumber } from '../summary/CurrencySummary';
+import { ApiExpense } from '../../../../services/api.types';
+import { getDatesDiff } from '../../../../utils/time';
+import { formatNumber } from '../../summary/CurrencySummary';
 
 import { Date as DateComponent, IsPrivate } from './cell';
 

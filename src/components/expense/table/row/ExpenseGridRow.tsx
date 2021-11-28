@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 
 import { Collapse, GridItem } from '@chakra-ui/react';
 
-import { useExpenseContext } from '../../../providers/ExpenseContextProvider';
-import { ApiExpense } from '../../../services/api.types';
-import { useIsMdBreakpoint } from '../../../utils/hooks';
+import { useExpenseContext } from '../../../../providers/ExpenseContextProvider';
+import { ApiExpense } from '../../../../services/api.types';
+import { useIsMdBreakpoint } from '../../../../utils/hooks';
 
 import { ExpenseGridRowBrowser } from './ExpenseGridRowBrowser';
 import { ExpenseGridRowMobile } from './ExpenseGridRowMobile';

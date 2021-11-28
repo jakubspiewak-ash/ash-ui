@@ -9,7 +9,7 @@ import { deleteExpense } from '../../../services/expense.service';
 import { NoDataTableRow } from '../../common/data/NoDataTableRow';
 import { ExpenseSummary } from '../summary/ExpenseSummary';
 
-import { ExpenseGridRow } from './ExpenseGridRow';
+import { ExpenseGridRow } from './row/ExpenseGridRow';
 
 export const ExpenseGrid = () => {
     const { setRequested, modal: { onOpen }, data: { expenses, summary }, updateData } = useExpenseContext();
