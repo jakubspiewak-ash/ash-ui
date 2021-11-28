@@ -26,7 +26,7 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
               aria-label='delete'
               colorScheme='red'
               icon={<DeleteIcon/>}
-              ml={3}
+              ml={2}
               my={3}
               size={'sm'}
               onClick={onDelete}
@@ -34,7 +34,7 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
             <IconButton
               aria-label='info'
               icon={<InfoIcon/>}
-              ml={3}
+              ml={2}
               my={3}
               size={'sm'}
               onClick={onInfo}
