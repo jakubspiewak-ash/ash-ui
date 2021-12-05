@@ -1,5 +1,4 @@
 import { FormControl, FormErrorIcon, FormLabel, Input } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
 import _ from 'lodash';
 
 interface FormDateInputProps {
@@ -9,8 +8,6 @@ interface FormDateInputProps {
 }
 
 export const FormDateMonthInput = ({ label, field, disabled }: FormDateInputProps) => {
-    const { values, handleChange } = useFormikContext();
-
     return (
         <FormControl mb={4}>
             <FormLabel>
@@ -26,9 +23,9 @@ export const FormDateMonthInput = ({ label, field, disabled }: FormDateInputProp
               name={field}
               placeholder={label}
               type={'date'}
-              value={_.get(values, field) || ''}
+              // value={_.get(values, field) || ''}
               variant={'filled'}
-              onChange={handleChange}
+              // onChange={handleChange}
             />
         </FormControl>
     );

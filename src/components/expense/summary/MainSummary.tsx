@@ -1,9 +1,9 @@
 import { Center, SimpleGrid, Stat, StatHelpText, StatLabel, StatNumber, Text, VStack } from '@chakra-ui/react';
 
 import { useAppDispatch } from '../../../redux/hooks';
-import { fetchExpensesAction } from '../../../redux/reducer/ExpenseSlice';
+import { loadExpenses } from '../../../redux/reducer/ExpenseSlice';
 import { ApiExpenseAmount, ApiExpenseDateRange } from '../../../services/api.types';
-import { YearMonth } from '../../../services/expense.service';
+import { YearMonth } from '../../../utils/types';
 import { DateMonthInput } from '../../common/DateMonthInput';
 
 import { formatNumber } from './CurrencySummary';
@@ -15,7 +15,7 @@ export interface MainSummaryProps {
 
 export const MainSummary = ({ amount: { net, gross, currency, vat } }: MainSummaryProps) => {
     const dispatch = useAppDispatch();
-    const updateData = (month: YearMonth) => dispatch(fetchExpensesAction(month));
+    const updateData = (month: YearMonth) => dispatch(loadExpenses(month));
 
     return (
         <Stat

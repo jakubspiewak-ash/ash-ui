@@ -1,5 +1,4 @@
 import { FormControl, FormLabel, InputGroup, InputLeftAddon, NumberInput, NumberInputField } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
 
 export interface FormNumberInputProps {
     name: string,
@@ -8,8 +7,6 @@ export interface FormNumberInputProps {
 }
 
 export const FormNumberInput = ({ name, label, type }: FormNumberInputProps) => {
-    const { values, handleChange } = useFormikContext<any>();
-
     return (
         <FormControl mb={4}>
             <FormLabel>{label}</FormLabel>
@@ -23,15 +20,15 @@ export const FormNumberInput = ({ name, label, type }: FormNumberInputProps) => 
                   placeholder={label}
                   precision={2}
                   type={type}
-                  value={values[name]}
+                  // value={values[name]}
                   variant="filled"
                   width="full"
                 >
                     <NumberInputField
                       placeholder={label}
-                      value={values[name]}
+                      // value={values[name]}
                       variant="filled"
-                      onChange={handleChange}
+                      // onChange={handleChange}
                     />
                 </NumberInput>
             </InputGroup>

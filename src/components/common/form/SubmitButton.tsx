@@ -1,5 +1,5 @@
 import { Button, Spinner } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
+import { useForm } from 'react-hook-form';
 
 export interface SubmitButtonProps {
     children?: string;
@@ -10,10 +10,9 @@ export interface SubmitButtonProps {
 
 export const SubmitButton = (props: SubmitButtonProps) => {
     const { children, afterSubmitting, isLoading } = props;
-    const { submitForm } = useFormikContext();
 
     const handleSubmitForm = async () => {
-        submitForm().then(() => afterSubmitting?.());
+        // submitForm().then(() => afterSubmitting?.());
     };
 
     return (
@@ -21,9 +20,10 @@ export const SubmitButton = (props: SubmitButtonProps) => {
           boxShadow={'xl'}
           disabled={isLoading}
           p={4}
+          type={'submit'}
           variant="outline"
           width="full"
-          onClick={handleSubmitForm}
+          // onClick={handleSubmitForm}
         >
             {isLoading ? <Spinner/> : (children || 'Submit')}
         </Button>

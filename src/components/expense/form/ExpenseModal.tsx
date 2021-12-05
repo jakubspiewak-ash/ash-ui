@@ -1,31 +1,18 @@
-import { Formik } from 'formik';
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+} from '@chakra-ui/react';
 import * as yup from 'yup';
 
-import { useErrorInfoContext } from '../../../providers/common/ErrorInfoContextProvider';
-import { ExpenseFormType, useExpenseContext } from '../../../providers/ExpenseContextProvider';
-import { useAppDispatch } from '../../../redux/hooks';
-import { fetchExpensesAction } from '../../../redux/reducer/ExpenseSlice';
-import { ApiExpenseRequest } from '../../../services/api.types';
-import { saveExpenses, updateExpense, YearMonth } from '../../../services/expense.service';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { closeModal } from '../../../redux/reducer/ExpenseSlice';
 
-import { ExpenseForm } from './ExpenseForm';
-
-
-const emptyFormValue: ExpenseFormType = {
-    amount: {
-        currency: 'PLN',
-        gross: undefined,
-        net: undefined,
-        vat: 23,
-    },
-    date: {
-        end: undefined,
-        start: undefined,
-    },
-    isPrivate: false,
-    mailConfig: null,
-    name: '',
-};
 
 const validationSchema = yup.object({
     amount: yup.object({
@@ -60,31 +47,34 @@ const validationSchema = yup.object({
 });
 
 export const ExpenseModal = () => {
-    const { addErrorToast } = useErrorInfoContext();
-    const { requested, modal: { onClose } } = useExpenseContext();
-
+    const { isOpen, mode } = useAppSelector((state) => state.expense.modal);
     const dispatch = useAppDispatch();
 
-    const updateData = (month: YearMonth) => dispatch(fetchExpensesAction(month));
-
-    const onFormSubmit = (request: ExpenseFormType) => {
-        (requested?.id ?
-                updateExpense(requested.id, request as ApiExpenseRequest) :
-                saveExpenses(request as ApiExpenseRequest)
-        )
-            .then(() => updateData({ month: new Date().getMonth() + 1, year: new Date().getFullYear() }))
-            .then(onClose)
-            .catch(addErrorToast);
-    };
+    const onClose = () => dispatch(closeModal());
 
     return (
-        <Formik
-          initialValues={requested?.request || emptyFormValue}
-          validationSchema={validationSchema}
-          enableReinitialize
-          onSubmit={onFormSubmit}
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
         >
-            <ExpenseForm/>
-        </Formik>
+            <ModalOverlay/>
+            <ModalContent>
+                <ModalHeader>{mode === 'ADD' ? 'Add expense' : 'Edit expense'}</ModalHeader>
+                <ModalCloseButton/>
+                <ModalBody>
+                    Test
+                    Test
+                    Test
+                    Test
+                    Test
+                    Test
+                    Test
+                </ModalBody>
+                <ModalFooter>
+                    <Button>Cancel</Button>
+                    <Button>Add</Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     );
 };

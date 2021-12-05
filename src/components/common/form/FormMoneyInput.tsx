@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
     FormControl,
     FormErrorIcon,
-    FormErrorMessage,
     FormLabel,
     InputGroup,
     NumberInput,
     NumberInputField,
     Select,
 } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
 import _ from 'lodash';
 
-import { FormAmount } from '../../../providers/ExpenseContextProvider';
+import { FormAmount } from '../../../redux/reducer/ExpenseSlice';
 
 const currenciesCodes = ['PLN', 'EUR', 'DOL'];
 const vatValues = [0, 5, 8, 23];
@@ -57,63 +55,61 @@ interface HasAmount {
 }
 
 export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }: MoneyInputProps) => {
-    const { values, setFieldValue, errors, touched, handleBlur } = useFormikContext<HasAmount>();
-
     const [localGross, setLocalGross] = useState<string>();
     const [localNet, setLocalNet] = useState<string>();
 
-    const setFormCurrency = (value: string) => setFieldValue(`${field}.currency`, value);
-    const setFormVat = (value: number) => setFieldValue(`${field}.vat`, value);
-    const setFormNet = (value?: number) => setFieldValue(`${field}.net`, value);
-    const setFormGross = (value?: number) => setFieldValue(`${field}.gross`, value);
+    // const setFormCurrency = (value: string) => setFieldValue(`${field}.currency`, value);
+    // const setFormVat = (value: number) => setFieldValue(`${field}.vat`, value);
+    // const setFormNet = (value?: number) => setFieldValue(`${field}.net`, value);
+    // const setFormGross = (value?: number) => setFieldValue(`${field}.gross`, value);
 
-    const getFormCurrency = (): string => _.get(values, [...field.split('.'), 'currency']);
-    const getFormVat = (): number => _.get(values, [...field.split('.'), 'vat']);
-    const getFormNet = (): number | undefined => _.get(values, [...field.split('.'), 'net']);
-    const getFormGross = (): number | undefined => _.get(values, [...field.split('.'), 'gross']);
+    // const getFormCurrency = (): string => _.get(values, [...field.split('.'), 'currency']);
+    // const getFormVat = (): number => _.get(values, [...field.split('.'), 'vat']);
+    // const getFormNet = (): number | undefined => _.get(values, [...field.split('.'), 'net']);
+    // const getFormGross = (): number | undefined => _.get(values, [...field.split('.'), 'gross']);
 
     const calculateGross = (net: number, vat: number): number => net * ((100 + vat) / 100);
     // const calculateNet = (gross: number, vat: number): number => gross / ((100 + vat) / 100);
 
-    const isFormInvalid = (): boolean =>
-        (!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`)) ||
-        (!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`));
+    // const isFormInvalid = (): boolean =>
+    //     (!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`)) ||
+    //     (!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`));
 
-    useEffect(() => {
-        const formNet = getFormNet();
-        if (formNet) {
-            const calculatedGross = calculateGross(formNet, getFormVat());
-            setFormGross(calculatedGross);
+    // useEffect(() => {
+    //     const formNet = getFormNet();
+    //     if (formNet) {
+    //         const calculatedGross = calculateGross(formNet, getFormVat());
+    //         setFormGross(calculatedGross);
+    //
+    //     } else {
+    //         setFormGross(undefined);
+    //         setLocalNet('');
+    //     }
+    // }, [getFormNet(), getFormVat()]);
 
-        } else {
-            setFormGross(undefined);
-            setLocalNet('');
-        }
-    }, [getFormNet(), getFormVat()]);
+    // useEffect(() => {
+    //     const formGross = getFormGross();
+    //     if (!formGross) {
+    //         setLocalGross('');
+    //         return;
+    //     }
+    //     const parsedGross = parseFloat(localGross || '0');
+    //
+    //     if (formGross !== parsedGross) {
+    //         setLocalGross(formGross.toFixed(2));
+    //     }
+    // }, [getFormGross()]);
 
-    useEffect(() => {
-        const formGross = getFormGross();
-        if (!formGross) {
-            setLocalGross('');
-            return;
-        }
-        const parsedGross = parseFloat(localGross || '0');
-
-        if (formGross !== parsedGross) {
-            setLocalGross(formGross.toFixed(2));
-        }
-    }, [getFormGross()]);
-
-    useEffect(() => {
-        const formNet = getFormNet();
-        if (formNet) {
-            setLocalNet(formNet.toFixed(2));
-        }
-    }, []);
+    // useEffect(() => {
+    //     const formNet = getFormNet();
+    //     if (formNet) {
+    //         setLocalNet(formNet.toFixed(2));
+    //     }
+    // }, []);
 
     return (
         <FormControl
-          isInvalid={isFormInvalid()}
+            // isInvalid={isFormInvalid()}
           mb={4}
         >
             <FormLabel>
@@ -130,15 +126,15 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                   borderEndRadius={0}
                   isInvalid={false}
                   padding={0}
-                  value={getFormCurrency()}
+                    // value={getFormCurrency()}
                   variant={'outline'}
                   w={48}
-                  onChange={({ currentTarget: { value } }) => setFormCurrency(value)}
+                    // onChange={({ currentTarget: { value } }) => setFormCurrency(value)}
                 >
                     {currenciesCodes.map(renderCurrencyOption)}
                 </Select>
                 <NumberInput
-                  isInvalid={(!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`))}
+                    // isInvalid={(!!_.get(errors, `${field}.net`) && !!_.get(touched, `${field}.net`))}
                   precision={2}
                   value={localNet}
                   variant='filled'
@@ -150,14 +146,14 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                       paddingInlineEnd={2}
                       paddingInlineStart={2}
                       placeholder={'Net'}
-                      value={getFormNet()}
+                        // value={getFormNet()}
                       onBlur={(e) => {
-                            setLocalNet(getFormNet()?.toFixed(2));
-                            handleBlur(e);
+                            // setLocalNet(getFormNet()?.toFixed(2));
+                            // handleBlur(e);
                         }}
                       onChange={({ target: { value } }) => {
                             setLocalNet(value);
-                            setFormNet(parseAndRoundFloat(value));
+                            // setFormNet(parseAndRoundFloat(value));
                         }}
                     />
                 </NumberInput>
@@ -165,16 +161,16 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                   borderRadius={0}
                   disabled={isDisabledVat}
                   isInvalid={false}
-                  value={getFormVat()}
+                    // value={getFormVat()}
                   variant={'outline'}
                   w={48}
-                  onChange={({ currentTarget: { value } }) => setFormVat(parseInt(value))}
+                    // onChange={({ currentTarget: { value } }) => setFormVat(parseInt(value))}
                 >
                     {vatValues.map(renderVatOption)}
                 </Select>
                 <NumberInput
                   isDisabled={isDisabledGross}
-                  isInvalid={(!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`))}
+                  // isInvalid={(!!_.get(errors, `${field}.gross`) && !!_.get(touched, `${field}.gross`))}
                   precision={2}
                   value={localGross}
                   variant='filled'
@@ -186,20 +182,20 @@ export const FormMoneyInput = ({ label, field, isDisabledVat, isDisabledGross }:
                       paddingInlineEnd={2}
                       paddingInlineStart={2}
                       placeholder={'Gross'}
-                      value={getFormGross()}
+                        // value={getFormGross()}
                       onBlur={(e) => {
-                            setLocalGross(getFormGross()?.toFixed(2));
-                            handleBlur(e);
+                            // setLocalGross(getFormGross()?.toFixed(2));
+                            // handleBlur(e);
                         }}
                       onChange={({ target: { value } }) => {
-                            setLocalGross(value);
-                            setFormGross(parseAndRoundFloat(value));
+                            // setLocalGross(value);
+                            // setFormGross(parseAndRoundFloat(value));
                         }}
                     />
                 </NumberInput>
             </InputGroup>
-            <FormErrorMessage>{_.get(touched, `${field}.net`) && _.get(errors, `${field}.net`)}</FormErrorMessage>
-            <FormErrorMessage>{_.get(touched, `${field}.gross`) && _.get(errors, `${field}.gross`)}</FormErrorMessage>
+            {/*<FormErrorMessage>{_.get(touched, `${field}.net`) && _.get(errors, `${field}.net`)}</FormErrorMessage>*/}
+            {/*<FormErrorMessage>{_.get(touched, `${field}.gross`) && _.get(errors, `${field}.gross`)}</FormErrorMessage>*/}
         </FormControl>
     );
 };

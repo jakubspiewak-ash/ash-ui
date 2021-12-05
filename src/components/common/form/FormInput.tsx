@@ -1,20 +1,19 @@
 import { FormControl, FormErrorIcon, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
-import _ from 'lodash';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 export interface InputFormProps {
-    field: string,
     label: string,
     type?: string,
-    disabled?: boolean
+    disabled?: boolean,
+    registration: UseFormRegisterReturn,
+    error?: string,
 }
 
-export const FormInput = ({ field, label, type, disabled }: InputFormProps) => {
-    const { values, handleChange, errors, touched, handleBlur } = useFormikContext<any>();
-
+export const FormInput = (props: InputFormProps) => {
+    const { label, type, registration, error } = props;
     return (
         <FormControl
-          isInvalid={!!_.get(errors, field) && !!_.get(touched, field)}
+          isInvalid={!!error}
           mb={4}
         >
             <FormLabel
@@ -29,17 +28,13 @@ export const FormInput = ({ field, label, type, disabled }: InputFormProps) => {
             </FormLabel>
             <Input
               boxShadow={'lg'}
-              disabled={disabled}
-              id={field}
-              name={field}
+              id={registration.name}
               placeholder={label}
               type={type}
-              value={_.get(values, field) || ''}
               variant={'filled'}
-              onBlur={handleBlur}
-              onChange={handleChange}
+              {...registration}
             />
-            <FormErrorMessage>{_.get(errors, field)}</FormErrorMessage>
-        </FormControl>);
-
+            <FormErrorMessage>{error}</FormErrorMessage>
+        </FormControl>
+    );
 };
