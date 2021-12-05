@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
-import { Box, IconButton } from '@chakra-ui/react';
+import { IconButton } from '@chakra-ui/react';
 
 
 interface ExpenseToolsButtonProps {

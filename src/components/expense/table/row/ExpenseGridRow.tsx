@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Collapse, GridItem } from '@chakra-ui/react';
 
-import { useExpenseContext } from '../../../../providers/ExpenseContextProvider';
+import { useAppSelector } from '../../../../redux/hooks';
 import { ApiExpense } from '../../../../services/api.types';
 import { useIsMdBreakpoint } from '../../../../utils/hooks';
 
@@ -23,11 +23,12 @@ export interface ExpenseTableRowProps {
 export const ExpenseGridRow = (props: ExpenseTableRowProps) => {
     const { expense, isInfoVisible } = props;
     const { id } = expense;
-    const { data } = useExpenseContext();
+
+    const expenses = useAppSelector((state) => state.expense.data.expenses);
 
     const isMd = useIsMdBreakpoint();
 
-    const bottomBorder = useMemo(() => id === data.expenses[data.expenses.length - 1]?.id ? 0 : 1, [data.expenses]);
+    const bottomBorder = useMemo(() => id === expenses[expenses.length - 1]?.id ? 0 : 1, [expenses]);
 
     const Row = (isMd ? ExpenseGridRowBrowser : ExpenseGridRowMobile)(props);
 

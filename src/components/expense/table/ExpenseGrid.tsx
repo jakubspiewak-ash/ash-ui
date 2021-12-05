@@ -1,20 +1,28 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Grid } from '@chakra-ui/react';
+import { Grid, Spinner } from '@chakra-ui/react';
 
 import { useErrorInfoContext } from '../../../providers/common/ErrorInfoContextProvider';
 import { useExpenseContext } from '../../../providers/ExpenseContextProvider';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { fetchExpensesAction } from '../../../redux/reducer/ExpenseSlice';
 import { ApiExpense } from '../../../services/api.types';
-import { deleteExpense } from '../../../services/expense.service';
+import { deleteExpense, YearMonth } from '../../../services/expense.service';
 import { NoDataTableRow } from '../../common/data/NoDataTableRow';
 import { ExpenseSummary } from '../summary/ExpenseSummary';
 
+import { ExpenseGridCell } from './row/ExpenseGridCell';
 import { ExpenseGridRow } from './row/ExpenseGridRow';
 
 export const ExpenseGrid = () => {
-    const { setRequested, modal: { onOpen }, data: { expenses, summary }, updateData } = useExpenseContext();
+    const { setRequested, modal: { onOpen } } = useExpenseContext();
     const { addErrorToast } = useErrorInfoContext();
     const [currentInfo, setCurrentInfo] = useState<string>();
+    const dispatch = useAppDispatch();
+
+    const { data: { expenses, summary }, status } = useAppSelector((state) => state.expense);
+
+    const updateData = (month: YearMonth) => dispatch(fetchExpensesAction(month));
 
     const onInfo = (expense: ApiExpense): () => void => {
         const { id } = expense;
@@ -50,6 +58,19 @@ export const ExpenseGrid = () => {
     }, []);
 
     const TableBodyContent = useMemo(() => {
+        if (status === 'LOADING') {
+            return (
+                <ExpenseGridCell
+                  align={'center'}
+                  size={12}
+                >
+                    <Spinner
+                      my={4}
+                      size={'xl'}
+                    />
+                </ExpenseGridCell>
+            );
+        }
         if (expenses.length) {
             return expenses.map((expense) => (
                 <ExpenseGridRow
@@ -66,7 +87,7 @@ export const ExpenseGrid = () => {
         }
         return <NoDataTableRow colsNumber={13}/>;
 
-    }, [expenses, currentInfo]);
+    }, [expenses, currentInfo, status]);
 
     return (
         <>

@@ -5,9 +5,9 @@ export const ThemeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
-      mr={12}
+      // mr={12}
       py={4}
-      textAlign="right"
+      // textAlign="right"
     >
       <IconButton
         aria-label="theme-button"

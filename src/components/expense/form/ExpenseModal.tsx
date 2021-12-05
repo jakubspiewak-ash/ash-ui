@@ -3,8 +3,10 @@ import * as yup from 'yup';
 
 import { useErrorInfoContext } from '../../../providers/common/ErrorInfoContextProvider';
 import { ExpenseFormType, useExpenseContext } from '../../../providers/ExpenseContextProvider';
+import { useAppDispatch } from '../../../redux/hooks';
+import { fetchExpensesAction } from '../../../redux/reducer/ExpenseSlice';
 import { ApiExpenseRequest } from '../../../services/api.types';
-import { saveExpenses, updateExpense } from '../../../services/expense.service';
+import { saveExpenses, updateExpense, YearMonth } from '../../../services/expense.service';
 
 import { ExpenseForm } from './ExpenseForm';
 
@@ -59,7 +61,12 @@ const validationSchema = yup.object({
 
 export const ExpenseModal = () => {
     const { addErrorToast } = useErrorInfoContext();
-    const { requested, updateData, modal: { onClose } } = useExpenseContext();
+    const { requested, modal: { onClose } } = useExpenseContext();
+
+    const dispatch = useAppDispatch();
+
+    const updateData = (month: YearMonth) => dispatch(fetchExpensesAction(month));
+
     const onFormSubmit = (request: ExpenseFormType) => {
         (requested?.id ?
                 updateExpense(requested.id, request as ApiExpenseRequest) :

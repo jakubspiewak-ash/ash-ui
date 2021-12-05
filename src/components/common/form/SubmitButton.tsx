@@ -1,23 +1,19 @@
-import { useState } from 'react';
-
 import { Button, Spinner } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 
 export interface SubmitButtonProps {
     children?: string;
     afterSubmitting?: () => void;
+    isLoading?: boolean;
 }
 
 
-export const SubmitButton = ({ children, afterSubmitting }: SubmitButtonProps) => {
+export const SubmitButton = (props: SubmitButtonProps) => {
+    const { children, afterSubmitting, isLoading } = props;
     const { submitForm } = useFormikContext();
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmitForm = async () => {
-        setIsLoading(true);
-        submitForm()
-            .then(() => setTimeout(() => setIsLoading(false), 500))
-            .then(() => afterSubmitting?.());
+        submitForm().then(() => afterSubmitting?.());
     };
 
     return (

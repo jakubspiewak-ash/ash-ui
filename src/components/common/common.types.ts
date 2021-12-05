@@ -1,5 +1,5 @@
-import { ReactNode, ReactNodeArray } from 'react';
+import { ReactNode } from 'react';
 
 export interface HasChildren {
-    children: ReactNode | ReactNodeArray;
+    children: ReactNode | ReactNode[];
 }
