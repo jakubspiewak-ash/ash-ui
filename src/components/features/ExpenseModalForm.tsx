@@ -14,6 +14,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeModal } from '../../redux/reducer/ExpenseSlice';
+import { DateInputField } from '../common/form/fields/DateInputField';
 import { InputField } from '../common/form/fields/InputField';
 import { MoneyInputField } from '../common/form/fields/MoneyInputField';
 import { SubmitButton } from '../common/form/SubmitButton';
@@ -57,6 +58,13 @@ export const ExpenseModalForm = () => {
                                 form,
                                 label: 'Amount',
                                 name: 'amount',
+                            }}
+                        />
+                        <DateInputField
+                          field={{
+                                form,
+                                label: 'Date',
+                                name: 'date',
                             }}
                         />
                         <SubmitButton/>
