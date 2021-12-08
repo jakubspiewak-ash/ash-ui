@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 
 import { Field } from './types';
 
@@ -8,21 +8,23 @@ export interface InputFieldProps {
 }
 
 export const InputField = (props: InputFieldProps) => {
-    const { field: { label, name, form: { formState: { errors }, register } }, type } = props;
-
-    const error: string = errors[name]?.message;
+    const { field: { label, name, form: { register } }, type } = props;
 
     return (
-        <FormControl isInvalid={!!error}>
+        <FormControl
+          boxShadow={'lg'}
+          mb={4}
+        >
             <FormLabel>
                 {label}
             </FormLabel>
             <Input
               id={name}
+              placeholder={label}
               type={type}
+              variant={'filled'}
               {...register(name)}
             />
-            <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
     );
 };

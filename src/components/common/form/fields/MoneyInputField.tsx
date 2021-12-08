@@ -48,12 +48,16 @@ export const MoneyInputField = (props: MoneyInputFieldProps) => {
     }, [netValue, vatValue]);
 
     return (
-        <FormControl>
+        <FormControl
+          boxShadow={'lg'}
+          mb={4}
+        >
             <FormLabel>
                 {label}
             </FormLabel>
             <InputGroup>
                 <Select
+                  borderEndRadius={0}
                   defaultValue={23}
                   id={names.currency}
                   {...register(names.currency)}
@@ -63,15 +67,21 @@ export const MoneyInputField = (props: MoneyInputFieldProps) => {
                 </Select>
                 <NumberInput
                   precision={2}
+                  variant={'filled'}
                   width={'full'}
                   onChange={(value) => setValue(names.net, formatNumber(value))}
                 >
                     <NumberInputField
+                      borderEndRadius={0}
+                      borderStartRadius={0}
                       p={2}
+                      placeholder={'Net'}
                       {...register(names.net)}
                     />
                 </NumberInput>
                 <Select
+                  borderEndRadius={0}
+                  borderStartRadius={0}
                   defaultValue={23}
                   id={names.vat}
                   {...register(names.vat)}
@@ -82,12 +92,15 @@ export const MoneyInputField = (props: MoneyInputFieldProps) => {
                 <NumberInput
                   precision={2}
                   value={grossValue}
+                  variant={'filled'}
                   width={'full'}
                   onBlur={() => setValue(names.gross, formatNumber(grossValue))}
                   onChange={(value) => setValue(names.gross, value)}
                 >
                     <NumberInputField
+                      borderStartRadius={0}
                       p={2}
+                      placeholder={'Gross'}
                       {...register(names.gross)}
                     />
                 </NumberInput>

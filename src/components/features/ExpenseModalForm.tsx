@@ -24,16 +24,7 @@ export const ExpenseModalForm = () => {
     const dispatch = useAppDispatch();
     const onClose = () => dispatch(closeModal());
 
-    const form = useForm<FieldValues>({
-        defaultValues: {
-            amount: {
-                name1: 2.2,
-                name2: 2.2,
-                name3: 2.2,
-            },
-            name: '',
-        },
-    });
+    const form = useForm<FieldValues>();
 
     const { handleSubmit, reset } = form;
 
