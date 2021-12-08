@@ -49,13 +49,14 @@ export const MoneyInputField = (props: MoneyInputFieldProps) => {
 
     return (
         <FormControl
-          boxShadow={'lg'}
           mb={4}
         >
             <FormLabel>
                 {label}
             </FormLabel>
-            <InputGroup>
+            <InputGroup
+              boxShadow={'lg'}
+            >
                 <Select
                   borderEndRadius={0}
                   defaultValue={23}

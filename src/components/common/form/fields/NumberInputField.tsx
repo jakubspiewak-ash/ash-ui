@@ -17,13 +17,15 @@ export const NumberInputField = (props: NumberInputField) => {
 
     return (
         <FormControl
-          boxShadow={'lg'}
           mb={4}
         >
             <FormLabel>
                 {label}
             </FormLabel>
-            <InputGroup w={'full'}>
+            <InputGroup
+              boxShadow={'lg'}
+              w={'full'}
+            >
                 <NumberInput
                   precision={2}
                   width={'full'}

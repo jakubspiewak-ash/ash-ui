@@ -12,13 +12,13 @@ export const InputField = (props: InputFieldProps) => {
 
     return (
         <FormControl
-          boxShadow={'lg'}
           mb={4}
         >
             <FormLabel>
                 {label}
             </FormLabel>
             <Input
+              boxShadow={'lg'}
               id={name}
               placeholder={label}
               type={type}
