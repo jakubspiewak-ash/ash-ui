@@ -1,5 +1,5 @@
 import {
-    Button,
+    HStack,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -8,10 +8,13 @@ import {
     ModalHeader,
     ModalOverlay,
 } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { closeModal } from '../../../redux/reducer/ExpenseSlice';
+import { ApiExpenseRequest } from '../../../services/api.types';
+import { SubmitButton } from '../../common/form/SubmitButton';
 
 
 const validationSchema = yup.object({
@@ -48,9 +51,19 @@ const validationSchema = yup.object({
 
 export const ExpenseModal = () => {
     const { isOpen, mode } = useAppSelector((state) => state.expense.modal);
+    const handleForm = useForm<ApiExpenseRequest>();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = handleForm;
+
     const dispatch = useAppDispatch();
 
     const onClose = () => dispatch(closeModal());
+
+    const onSubmit = (data: ApiExpenseRequest) => new Promise((resolve) => {
+        setTimeout(() => {
+            alert(JSON.stringify(data, null, 2));
+            resolve('x');
+        }, 2000);
+    });
 
     return (
         <Modal
@@ -59,21 +72,27 @@ export const ExpenseModal = () => {
         >
             <ModalOverlay/>
             <ModalContent>
-                <ModalHeader>{mode === 'ADD' ? 'Add expense' : 'Edit expense'}</ModalHeader>
-                <ModalCloseButton/>
-                <ModalBody>
-                    Test
-                    Test
-                    Test
-                    Test
-                    Test
-                    Test
-                    Test
-                </ModalBody>
-                <ModalFooter>
-                    <Button>Cancel</Button>
-                    <Button>Add</Button>
-                </ModalFooter>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <ModalHeader>{mode === 'ADD' ? 'Add expense' : 'Edit expense'}</ModalHeader>
+                    <ModalCloseButton/>
+                    <ModalBody>
+                        {/*<FormMoneyInput*/}
+                        {/*  label={'Amount'}*/}
+                        {/*  name={'amount'}*/}
+                        {/*  registration={{*/}
+                        {/*      currency: register('amount.currency'),*/}
+                        {/*      gross: register('amount.gross'),*/}
+                        {/*      net: register('amount.net'),*/}
+                        {/*      vat: register('amount.vat'),*/}
+                        {/*  }}*/}
+                        {/*/>*/}
+                    </ModalBody>
+                    <ModalFooter>
+                        <HStack>
+                            <SubmitButton isLoading={isSubmitting}/>
+                        </HStack>
+                    </ModalFooter>
+                </form>
             </ModalContent>
         </Modal>
     );

@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login } from '../../redux/reducer/AuthSlice';
 import { ApiUserCredentials } from '../../services/api.types';
-import { FormInput } from '../common/form/FormInput';
+import { InputField } from '../common/form/fields/InputField';
 import { SubmitButton } from '../common/form/SubmitButton';
 
 
@@ -18,25 +18,31 @@ export const UserLoginForm = () => {
         password: yup.string().required('Password is required'),
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ApiUserCredentials>({
+    const form = useForm<FieldValues>({
         mode: 'all',
         resolver: yupResolver(schema),
     });
+
+    const { handleSubmit } = form;
 
     const onSubmit = (userCredentials: ApiUserCredentials) => dispatch(login(userCredentials));
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <FormInput
-              error={errors.login?.message}
-              label="Login"
-              registration={register('login')}
+            <InputField
+              field={{
+                    form,
+                    label: 'Login',
+                    name: 'login',
+                }}
             />
-            <FormInput
-              error={errors.password?.message}
-              label="Password"
-              registration={register('password')}
-              type="password"
+            <InputField
+              field={{
+                    form,
+                    label: 'Password',
+                    name: 'password',
+                }}
+              type={'password'}
             />
             <SubmitButton isLoading={authStatus === 'LOADING'}>
                 Sign in
