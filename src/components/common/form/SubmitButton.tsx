@@ -1,5 +1,4 @@
 import { Button, Spinner } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
 
 export interface SubmitButtonProps {
     children?: string;
@@ -9,11 +8,11 @@ export interface SubmitButtonProps {
 
 
 export const SubmitButton = (props: SubmitButtonProps) => {
-    const { children, afterSubmitting, isLoading } = props;
+    const { children, isLoading } = props;
 
-    const handleSubmitForm = async () => {
-        // submitForm().then(() => afterSubmitting?.());
-    };
+    // const handleSubmitForm = async () => {
+    //     // submitForm().then(() => afterSubmitting?.());
+    // };
 
     return (
         <Button
@@ -23,7 +22,7 @@ export const SubmitButton = (props: SubmitButtonProps) => {
           type={'submit'}
           variant="outline"
           width="full"
-          // onClick={handleSubmitForm}
+            // onClick={handleSubmitForm}
         >
             {isLoading ? <Spinner/> : (children || 'Submit')}
         </Button>
