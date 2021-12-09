@@ -14,9 +14,10 @@ import { FieldValues, useForm } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeModal } from '../../redux/reducer/ExpenseSlice';
-import { DateInputField } from '../common/form/fields/DateInputField';
-import { InputField } from '../common/form/fields/InputField';
-import { MoneyInputField } from '../common/form/fields/MoneyInputField';
+import { DateField } from '../common/form/fields/DateField';
+import { MoneyField } from '../common/form/fields/MoneyField';
+import { SwitchField } from '../common/form/fields/SwitchField';
+import { TextField } from '../common/form/fields/TextField';
 import { SubmitButton } from '../common/form/SubmitButton';
 
 export const ExpenseModalForm = () => {
@@ -46,25 +47,32 @@ export const ExpenseModalForm = () => {
                 <ModalHeader>{mode === 'ADD' ? 'Add expense' : 'Edit expense'}</ModalHeader>
                 <ModalBody>
                     <form onSubmit={handleSubmit((data) => alert(JSON.stringify(data, null, 4)))}>
-                        <InputField
+                        <TextField
                           field={{
                                 form,
                                 label: 'Name',
                                 name: 'name',
                             }}
                         />
-                        <MoneyInputField
+                        <MoneyField
                           field={{
                                 form,
                                 label: 'Amount',
                                 name: 'amount',
                             }}
                         />
-                        <DateInputField
+                        <DateField
                           field={{
                                 form,
                                 label: 'Date',
                                 name: 'date',
+                            }}
+                        />
+                        <SwitchField
+                          field={{
+                                form,
+                                label: 'Is private',
+                                name: 'isPrivate',
                             }}
                         />
                         <SubmitButton/>

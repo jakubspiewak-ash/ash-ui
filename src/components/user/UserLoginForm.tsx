@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login } from '../../redux/reducer/AuthSlice';
 import { ApiUserCredentials } from '../../services/api.types';
-import { InputField } from '../common/form/fields/InputField';
+import { TextField } from '../common/form/fields/TextField';
 import { SubmitButton } from '../common/form/SubmitButton';
 
 
@@ -29,14 +29,14 @@ export const UserLoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField
+            <TextField
               field={{
                     form,
                     label: 'Login',
                     name: 'login',
                 }}
             />
-            <InputField
+            <TextField
               field={{
                     form,
                     label: 'Password',

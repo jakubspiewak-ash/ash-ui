@@ -26,7 +26,7 @@ export interface MoneyInputFieldProps {
     field: Field;
 }
 
-export const MoneyInputField = (props: MoneyInputFieldProps) => {
+export const MoneyField = (props: MoneyInputFieldProps) => {
     const { field: { name, form, label } } = props;
     const { register, setValue, watch } = form;
 

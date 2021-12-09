@@ -12,7 +12,7 @@ export interface NumberInputField {
     field: Field,
 }
 
-export const NumberInputField = (props: NumberInputField) => {
+export const NumberField = (props: NumberInputField) => {
     const { field: { name, label, form: { register } } } = props;
 
     return (

@@ -7,7 +7,7 @@ export interface InputFieldProps {
     type?: 'password' | 'input'
 }
 
-export const InputField = (props: InputFieldProps) => {
+export const TextField = (props: InputFieldProps) => {
     const { field: { label, name, form: { register } }, type } = props;
 
     return (
