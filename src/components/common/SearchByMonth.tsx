@@ -23,7 +23,7 @@ interface DateInputProps {
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 
-export const DateMonthInput = ({ label, onSearch }: DateInputProps) => {
+export const SearchByMonth = ({ label, onSearch }: DateInputProps) => {
     const [{ month, year }, setState] = useState({ month: currentDate.getMonth() + 1, year: currentYear });
 
     const onSearchClick = () => {

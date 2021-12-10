@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../redux/hooks';
 import { loadExpenses } from '../../../redux/reducer/ExpenseSlice';
 import { ApiExpenseAmount, ApiExpenseDateRange } from '../../../services/api.types';
 import { YearMonth } from '../../../utils/types';
-import { DateMonthInput } from '../../common/DateMonthInput';
+import { SearchByMonth } from '../../common/SearchByMonth';
 
 import { formatNumber } from './CurrencySummary';
 
@@ -39,7 +39,7 @@ export const MainSummary = ({ amount: { net, gross, currency, vat } }: MainSumma
                     </StatHelpText>
                     <StatHelpText>
                     </StatHelpText>
-                    <DateMonthInput
+                    <SearchByMonth
                       label={'Accounting month'}
                       onSearch={updateData}
                     />
