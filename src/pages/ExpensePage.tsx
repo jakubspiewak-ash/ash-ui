@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { ExpenseAddButton } from '../components/expense/ExpenseAddButton';
-import { ExpenseModalForm } from '../components/features/ExpenseModalForm';
+import { ExpenseModal } from '../components/features/ExpenseModal';
 
 export const ExpensePage = () => (
     <>
-        <ExpenseModalForm/>
+        <ExpenseModal/>
         <ExpenseAddButton/>
     </>
 );

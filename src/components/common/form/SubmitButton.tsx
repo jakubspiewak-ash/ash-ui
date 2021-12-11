@@ -3,18 +3,18 @@ import { Button, Spinner } from '@chakra-ui/react';
 export interface SubmitButtonProps {
     children?: string;
     isLoading?: boolean;
-    form?: string;
+    formName?: string;
 }
 
 
 export const SubmitButton = (props: SubmitButtonProps) => {
-    const { children, isLoading, form } = props;
+    const { children, isLoading, formName } = props;
 
     return (
         <Button
           boxShadow={'xl'}
           disabled={isLoading}
-          form={form}
+          form={formName}
           p={4}
           type={'submit'}
           variant="outline"
