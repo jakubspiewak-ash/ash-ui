@@ -8,7 +8,7 @@ export interface DateInputFieldProps {
     field: Field,
 }
 
-export const DateField = (props: DateInputFieldProps) => {
+export const DateRangeField = (props: DateInputFieldProps) => {
     const { field: { label, name, form: { register } } } = props;
 
     const names = useMemo(() => {
