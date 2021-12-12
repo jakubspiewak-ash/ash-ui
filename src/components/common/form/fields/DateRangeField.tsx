@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
 import { FormControl, FormErrorIcon, FormErrorMessage, FormLabel, Input, InputGroup } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { Field } from './types';
 
@@ -22,6 +23,9 @@ export const DateRangeField = (props: DateInputFieldProps) => {
     const startValue = watch(names.start);
     const endValue = watch(names.end);
 
+    const startError = _.get(errors, names.start);
+    const endError = _.get(errors, names.end);
+
     useEffect(() => {
         if (startValue === '') {
             setValue(names.start, undefined, { shouldValidate: true });
@@ -36,7 +40,7 @@ export const DateRangeField = (props: DateInputFieldProps) => {
 
     return (
         <FormControl
-          isInvalid={errors[name]}
+          isInvalid={startError || endError}
           mb={4}
         >
             <FormLabel>
@@ -66,7 +70,7 @@ export const DateRangeField = (props: DateInputFieldProps) => {
                   {...register(names.end)}
                 />
             </InputGroup>
-            <FormErrorMessage>{errors[name]?.start?.message || errors[name]?.end?.message}</FormErrorMessage>
+            <FormErrorMessage>{startError?.message || endError?.message}</FormErrorMessage>
         </FormControl>
     );
 };

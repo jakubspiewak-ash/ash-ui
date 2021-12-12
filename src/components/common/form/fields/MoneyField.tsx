@@ -10,6 +10,7 @@ import {
     NumberInputField,
     Select,
 } from '@chakra-ui/react';
+import _ from 'lodash';
 
 import { formatNumber } from '../../../../utils/functions';
 
@@ -52,6 +53,9 @@ export const MoneyField = (props: MoneyInputFieldProps) => {
     const grossValue = watch(names.gross);
     const vatValue = watch(names.vat);
 
+    const netError = _.get(errors, names.net);
+    const grossError = _.get(errors, names.gross);
+
     useEffect(() => {
         if (netValue === '') {
             setValue(names.gross, undefined);
@@ -71,7 +75,7 @@ export const MoneyField = (props: MoneyInputFieldProps) => {
 
     return (
         <FormControl
-          isInvalid={errors[name]?.net || errors[name]?.gross}
+          isInvalid={netError || grossError}
           mb={4}
         >
             <FormLabel>
@@ -94,7 +98,7 @@ export const MoneyField = (props: MoneyInputFieldProps) => {
                     {currencies.map(CurrencyOption)}
                 </Select>
                 <NumberInput
-                  isInvalid={errors[name]?.net}
+                  isInvalid={netError}
                   precision={2}
                   variant={'filled'}
                   width={'full'}
@@ -119,7 +123,7 @@ export const MoneyField = (props: MoneyInputFieldProps) => {
                     {vatRates.map(VatRateOption)}
                 </Select>
                 <NumberInput
-                  isInvalid={errors[name]?.gross?.message}
+                  isInvalid={grossError}
                   precision={2}
                   value={grossValue}
                   variant={'filled'}
@@ -135,7 +139,7 @@ export const MoneyField = (props: MoneyInputFieldProps) => {
                     />
                 </NumberInput>
             </InputGroup>
-            <FormErrorMessage>{errors[name]?.net?.message || errors[name]?.gross?.message}</FormErrorMessage>
+            <FormErrorMessage>{netError?.message || grossError?.message}</FormErrorMessage>
         </FormControl>
     );
 };

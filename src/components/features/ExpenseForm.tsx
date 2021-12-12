@@ -93,14 +93,14 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
                           field={{
                                 form,
                                 label: 'Address',
-                                name: 'mailConfig.address',
+                                name: 'mailConfig.mailAddress',
                             }}
                         />
                         <TextField
                           field={{
                                 form,
                                 label: 'Attachment',
-                                name: 'mailConfig.attachment',
+                                name: 'mailConfig.attachmentPattern',
                             }}
                         />
                     </AccordionPanel>
