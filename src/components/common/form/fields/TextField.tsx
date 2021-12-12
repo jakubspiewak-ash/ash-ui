@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { FormControl, FormErrorIcon, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 
 import { Field } from './types';
 
@@ -8,13 +8,18 @@ export interface InputFieldProps {
 }
 
 export const TextField = (props: InputFieldProps) => {
-    const { field: { label, name, form: { register } }, type } = props;
+    const { field: { label, name, form: { register, formState: { errors } } }, type } = props;
 
     return (
         <FormControl
+          isInvalid={errors[name]}
           mb={4}
         >
             <FormLabel>
+                {errors[name] && <FormErrorIcon
+                  color={'red.400'}
+                  mr={1}
+                                 />}
                 {label}
             </FormLabel>
             <Input
@@ -25,6 +30,7 @@ export const TextField = (props: InputFieldProps) => {
               variant={'filled'}
               {...register(name)}
             />
+            <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
         </FormControl>
     );
 };

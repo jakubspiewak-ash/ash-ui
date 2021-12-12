@@ -1,5 +1,7 @@
 import {
     FormControl,
+    FormErrorIcon,
+    FormErrorMessage,
     FormLabel,
     InputGroup,
     NumberInput,
@@ -13,13 +15,18 @@ export interface NumberInputField {
 }
 
 export const NumberField = (props: NumberInputField) => {
-    const { field: { name, label, form: { register } } } = props;
+    const { field: { name, label, form: { register, formState: { errors } } } } = props;
 
     return (
         <FormControl
+          isInvalid={errors[name]}
           mb={4}
         >
             <FormLabel>
+                {errors[name] && <FormErrorIcon
+                  color={'red.400'}
+                  mr={1}
+                                 />}
                 {label}
             </FormLabel>
             <InputGroup
@@ -36,6 +43,7 @@ export const NumberField = (props: NumberInputField) => {
                     />
                 </NumberInput>
             </InputGroup>
+            <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
         </FormControl>
     );
 };

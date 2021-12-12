@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
-import { FormControl, FormLabel, Input, InputGroup } from '@chakra-ui/react';
+import { FormControl, FormErrorIcon, FormErrorMessage, FormLabel, Input, InputGroup } from '@chakra-ui/react';
 
 import { Field } from './types';
 
@@ -9,7 +9,8 @@ export interface DateInputFieldProps {
 }
 
 export const DateRangeField = (props: DateInputFieldProps) => {
-    const { field: { label, name, form: { register } } } = props;
+    const { field: { label, name, form } } = props;
+    const { register, setValue, watch, formState: { errors } } = form;
 
     const names = useMemo(() => {
         return {
@@ -18,11 +19,31 @@ export const DateRangeField = (props: DateInputFieldProps) => {
         };
     }, [name]);
 
+    const startValue = watch(names.start);
+    const endValue = watch(names.end);
+
+    useEffect(() => {
+        if (startValue === '') {
+            setValue(names.start, undefined, { shouldValidate: true });
+        }
+    }, [startValue]);
+
+    useEffect(() => {
+        if (endValue === '') {
+            setValue(names.end, undefined, { shouldValidate: true });
+        }
+    }, [endValue]);
+
     return (
         <FormControl
+          isInvalid={errors[name]}
           mb={4}
         >
             <FormLabel>
+                <FormErrorIcon
+                  color={'red.400'}
+                  mr={2}
+                />
                 {label}
             </FormLabel>
             <InputGroup
@@ -45,6 +66,7 @@ export const DateRangeField = (props: DateInputFieldProps) => {
                   {...register(names.end)}
                 />
             </InputGroup>
+            <FormErrorMessage>{errors[name]?.start?.message || errors[name]?.end?.message}</FormErrorMessage>
         </FormControl>
     );
 };
