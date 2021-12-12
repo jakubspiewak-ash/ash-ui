@@ -1,6 +1,6 @@
 import { Stat, StatHelpText, StatNumber, Text } from '@chakra-ui/react';
 
-import { ApiExpenseAmount } from '../../../services/api.types';
+import { ApiExpenseAmount } from '../../../../services/api.types';
 
 export interface CurrencySummaryProps {
     currency: string,

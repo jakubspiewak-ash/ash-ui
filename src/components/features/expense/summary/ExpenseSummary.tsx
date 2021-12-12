@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { SimpleGrid } from '@chakra-ui/react';
 
-import { ApiExpenseSummary } from '../../../services/api.types';
+import { ApiExpenseSummary } from '../../../../services/api.types';
 
 import { CurrencySummary } from './CurrencySummary';
 import { MainSummary } from './MainSummary';
@@ -26,7 +26,7 @@ export const ExpenseSummary = ({ amount, currency, date }: ApiExpenseSummary) =>
               date={date}
             />
             <SimpleGrid
-            // eslint-disable-next-line sort-keys
+                // eslint-disable-next-line sort-keys
               columns={[2, 2, 3, 4]}
               gap={3}
               mt={3}

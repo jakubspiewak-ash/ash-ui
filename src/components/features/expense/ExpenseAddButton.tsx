@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 
-import { useAppDispatch } from '../../redux/hooks';
-import { openModal } from '../../redux/reducer/ExpenseSlice';
+import { useAppDispatch } from '../../../redux/hooks';
+import { openModal } from '../../../redux/reducer/ExpenseSlice';
 
 
 export const ExpenseAddButton = () => {

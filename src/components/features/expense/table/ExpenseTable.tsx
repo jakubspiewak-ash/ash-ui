@@ -2,19 +2,19 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Grid, Spinner } from '@chakra-ui/react';
 
-import { useErrorInfoContext } from '../../../providers/common/ErrorInfoContextProvider';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { loadExpenses, openModal } from '../../../redux/reducer/ExpenseSlice';
-import { ApiExpense } from '../../../services/api.types';
-import { deleteExpense } from '../../../services/expense.service';
-import { YearMonth } from '../../../utils/types';
-import { NoDataTableRow } from '../../common/data/NoDataTableRow';
+import { useErrorInfoContext } from '../../../../providers/common/ErrorInfoContextProvider';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { loadExpenses, openModal } from '../../../../redux/reducer/ExpenseSlice';
+import { ApiExpense } from '../../../../services/api.types';
+import { deleteExpense } from '../../../../services/expense.service';
+import { YearMonth } from '../../../../utils/types';
+import { NoDataTableRow } from '../../../common/data/NoDataTableRow';
 import { ExpenseSummary } from '../summary/ExpenseSummary';
 
 import { ExpenseGridCell } from './row/ExpenseGridCell';
 import { ExpenseGridRow } from './row/ExpenseGridRow';
 
-export const ExpenseGrid = () => {
+export const ExpenseTable = () => {
     const { addErrorToast } = useErrorInfoContext();
     const [currentInfo, setCurrentInfo] = useState<string>();
     const dispatch = useAppDispatch();

@@ -13,10 +13,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { closeModal } from '../../redux/reducer/ExpenseSlice';
-import { RootState } from '../../redux/types';
-import { SubmitButton } from '../common/form/SubmitButton';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { closeModal } from '../../../../redux/reducer/ExpenseSlice';
+import { RootState } from '../../../../redux/types';
+import { SubmitButton } from '../../../common/form/SubmitButton';
 
 import { ExpenseForm, FORM_NAME } from './ExpenseForm';
 

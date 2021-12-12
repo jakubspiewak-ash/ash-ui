@@ -1,10 +1,10 @@
 import { Center, SimpleGrid, Stat, StatHelpText, StatLabel, StatNumber, Text, VStack } from '@chakra-ui/react';
 
-import { useAppDispatch } from '../../../redux/hooks';
-import { loadExpenses } from '../../../redux/reducer/ExpenseSlice';
-import { ApiExpenseAmount, ApiExpenseDateRange } from '../../../services/api.types';
-import { YearMonth } from '../../../utils/types';
-import { SearchByMonth } from '../../common/SearchByMonth';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { loadExpenses } from '../../../../redux/reducer/ExpenseSlice';
+import { ApiExpenseAmount, ApiExpenseDateRange } from '../../../../services/api.types';
+import { YearMonth } from '../../../../utils/types';
+import { SearchByMonth } from '../../../common/SearchByMonth';
 
 import { formatNumber } from './CurrencySummary';
 

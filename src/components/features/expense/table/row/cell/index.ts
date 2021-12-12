@@ -1,4 +1,4 @@
-import { ApiExpense } from '../../../../../services/api.types';
+import { ApiExpense } from '../../../../../../services/api.types';
 
 import { Amount } from './Amount';
 import { Currency } from './Currency';

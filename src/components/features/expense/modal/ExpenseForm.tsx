@@ -3,10 +3,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
 import { UseFormReturn } from 'react-hook-form';
 
-import { DateRangeField } from '../common/form/fields/DateRangeField';
-import { MoneyField } from '../common/form/fields/MoneyField';
-import { SwitchField } from '../common/form/fields/SwitchField';
-import { TextField } from '../common/form/fields/TextField';
+import { DateRangeField } from '../../../common/form/fields/DateRangeField';
+import { MoneyField } from '../../../common/form/fields/MoneyField';
+import { SwitchField } from '../../../common/form/fields/SwitchField';
+import { TextField } from '../../../common/form/fields/TextField';
 
 export const FORM_NAME = 'expense-form';
 
