@@ -17,7 +17,9 @@ export interface ExpenseFormProps {
 export const ExpenseForm = (props: ExpenseFormProps) => {
     const { form } = props;
     const { handleSubmit, watch, setValue } = form;
+
     const isPrivate: boolean = watch('isPrivate');
+    const mailConfig = watch('mailConfig');
 
     const [isMailConfigEnabled, setMailConfigEnabled] = useState(false);
 
@@ -25,6 +27,12 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
 
     const isMailConfigEnabledIndex = useMemo(() => isMailConfigEnabled ? 0 : -1, [isMailConfigEnabled]);
 
+    useEffect(() => {
+        if (mailConfig) {
+            onMailConfigToggle();
+        }
+    }, []);
+    
     useEffect(() => {
         if (isPrivate) {
             setMailConfigEnabled(false);

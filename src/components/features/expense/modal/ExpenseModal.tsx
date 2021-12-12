@@ -69,8 +69,6 @@ export const ExpenseModal = () => {
     useEffect(() => {
         if (isOpen) {
             reset(initialFormValue);
-            // eslint-disable-next-line no-console
-            console.log(initialFormValue);
         }
     }, [isOpen]);
 
