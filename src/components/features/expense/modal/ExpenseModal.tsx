@@ -55,7 +55,7 @@ const validationSchema = yup.object({
 });
 
 export const ExpenseModal = () => {
-    const { isOpen, mode } = useAppSelector((state: RootState) => state.expense.modal);
+    const { isOpen, mode, initialFormValue } = useAppSelector((state: RootState) => state.expense.modal);
 
     const dispatch = useAppDispatch();
     const onClose = () => dispatch(closeModal());
@@ -67,8 +67,10 @@ export const ExpenseModal = () => {
     const header = useMemo(() => mode === 'ADD' ? 'Add expense' : 'Edit expense', [mode]);
 
     useEffect(() => {
-        if (!isOpen) {
-            reset();
+        if (isOpen) {
+            reset(initialFormValue);
+            // eslint-disable-next-line no-console
+            console.log(initialFormValue);
         }
     }, [isOpen]);
 

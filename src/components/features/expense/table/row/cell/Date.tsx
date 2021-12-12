@@ -14,16 +14,15 @@ export const Date = ({ expense }: ExpenseGridItemProps) => {
           gridGap={1}
           templateColumns={'repeat(2, 1fr)'}
           templateRows={'repeat(2, 1fr)'}
-          // textAlign={'end'}
           width={'full'}
         >
             <GridItem as={'b'}>From:</GridItem>
             <GridItem textAlign={'center'}>
-                {start?.toLocaleDateString() || <InfiniteIcon/>}
+                {start || <InfiniteIcon/>}
             </GridItem>
             <GridItem as={'b'}>To:</GridItem>
             <GridItem textAlign={'center'}>
-                {end?.toLocaleDateString() || <InfiniteIcon/>}
+                {end || <InfiniteIcon/>}
             </GridItem>
         </Grid>
     );

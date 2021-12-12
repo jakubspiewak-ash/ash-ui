@@ -27,8 +27,8 @@ export interface ApiExpenseAmount {
 }
 
 export interface ApiExpenseDateRange {
-    start?: Date,
-    end?: Date
+    start?: string,
+    end?: string
 }
 
 export interface ApiExpense {

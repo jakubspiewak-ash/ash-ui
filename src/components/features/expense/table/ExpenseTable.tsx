@@ -28,7 +28,9 @@ export const ExpenseTable = () => {
         return () => setCurrentInfo(currentInfo !== id ? id : undefined);
     };
 
-    const onEdit = (expense: ApiExpense) => () => dispatch(openModal(expense));
+    const onEdit = (expense: ApiExpense) => () => {
+        dispatch(openModal(expense));
+    };
 
     const onDelete = (expense: ApiExpense): () => void => {
         const { id } = expense;

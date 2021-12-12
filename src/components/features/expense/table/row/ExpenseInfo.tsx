@@ -35,7 +35,7 @@ export const ExpenseInfo = (props: ExpenseInfoProps) => {
         if (!start || !end) {
             return '';
         }
-        const { days, months, years } = getDatesDiff(end, start);
+        const { days, months, years } = getDatesDiff(new Date(end), new Date(start));
         return `${years ? `${years} years ` : ''} ${months ? `${months} months ` : ''} ${days ? `${days} days` : ''}`;
     }, [start, end]);
 
@@ -43,7 +43,7 @@ export const ExpenseInfo = (props: ExpenseInfoProps) => {
         if (!end) {
             return '';
         }
-        const { days, months, years } = getDatesDiff(end, new Date());
+        const { days, months, years } = getDatesDiff(new Date(end), new Date());
         return `Left ${years ? `${years} years ` : ''} ${months ? `${months} months ` : ''} ${days ? `${days} days` : ''}`;
     }, [start, end]);
 
