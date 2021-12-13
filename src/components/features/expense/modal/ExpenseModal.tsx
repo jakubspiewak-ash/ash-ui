@@ -55,7 +55,7 @@ const validationSchema = yup.object({
 });
 
 export const ExpenseModal = () => {
-    const { isOpen, mode, initialFormValue } = useAppSelector((state: RootState) => state.expense.modal);
+    const { isOpen, mode, initialFormValue, status } = useAppSelector((state: RootState) => state.expense.modal);
 
     const dispatch = useAppDispatch();
     const onClose = () => dispatch(closeModal());
@@ -85,7 +85,10 @@ export const ExpenseModal = () => {
                     <ExpenseForm form={form}/>
                 </ModalBody>
                 <ModalFooter>
-                    <SubmitButton formName={FORM_NAME}/>
+                    <SubmitButton
+                      formName={FORM_NAME}
+                      isLoading={status === 'LOADING'}
+                    />
                 </ModalFooter>
             </ModalContent>
         </Modal>

@@ -3,6 +3,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
 import { UseFormReturn } from 'react-hook-form';
 
+
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { loadExpenses, saveExpense } from '../../../../redux/reducer/ExpenseSlice';
+import { ApiExpenseRequest } from '../../../../services/api.types';
 import { DateRangeField } from '../../../common/form/fields/DateRangeField';
 import { MoneyField } from '../../../common/form/fields/MoneyField';
 import { SwitchField } from '../../../common/form/fields/SwitchField';
@@ -18,12 +22,16 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
     const { form } = props;
     const { handleSubmit, watch, setValue } = form;
 
+    const dispatch = useAppDispatch();
+    const { month } = useAppSelector((state) => state.expense);
+
     const isPrivate: boolean = watch('isPrivate');
     const mailConfig = watch('mailConfig');
 
     const [isMailConfigEnabled, setMailConfigEnabled] = useState(false);
 
     const onMailConfigToggle = () => setMailConfigEnabled(!isMailConfigEnabled);
+    const onSubmit = (request: ApiExpenseRequest) => dispatch(saveExpense(request)).then(() => dispatch(loadExpenses(month)));
 
     const isMailConfigEnabledIndex = useMemo(() => isMailConfigEnabled ? 0 : -1, [isMailConfigEnabled]);
 
@@ -32,7 +40,7 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
             onMailConfigToggle();
         }
     }, []);
-    
+
     useEffect(() => {
         if (isPrivate) {
             setMailConfigEnabled(false);
@@ -49,10 +57,11 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
         }
     }, [isMailConfigEnabled]);
 
+
     return (
         <form
           id={FORM_NAME}
-          onSubmit={handleSubmit((data) => alert(JSON.stringify(data, null, 4)))}
+          onSubmit={handleSubmit(onSubmit)}
         >
             <TextField
               field={{
