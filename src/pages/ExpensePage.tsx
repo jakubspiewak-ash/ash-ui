@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ExpenseAddButton } from '../components/features/expense/ExpenseAddButton';
-import { ExpenseModal } from '../components/features/expense/modal/ExpenseModal';
+import { ExpenseModal } from '../components/features/expense/form/ExpenseModal';
 import { ExpenseTable } from '../components/features/expense/table/ExpenseTable';
 
 export const ExpensePage = () => (

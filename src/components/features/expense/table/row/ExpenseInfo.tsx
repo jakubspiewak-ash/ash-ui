@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react';
 
-import { Box, Divider, Flex, Grid, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, Grid, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { MdOutlineAttachFile, MdOutlineMail } from 'react-icons/all';
 
 import { ApiExpense } from '../../../../../services/api.types';
@@ -100,9 +100,10 @@ export const ExpenseInfo = (props: ExpenseInfoProps) => {
                             {dateLeft}
                         </Text>
                     </Flex>
-                    {!mailConfig ? null : (
+                </InfoBox>
+                {!mailConfig ? null : (
+                    <InfoBox>
                         <Box>
-                            <Divider my={2}/>
                             <Text fontSize={'xl'}>Mail config:</Text>
                             <Grid
                               alignItems={'center'}
@@ -115,15 +116,9 @@ export const ExpenseInfo = (props: ExpenseInfoProps) => {
                                 <Text><i>{mailConfig.attachmentPattern}</i></Text>
                             </Grid>
                         </Box>
-                    )}
-                </InfoBox>
+                    </InfoBox>
+                )}
             </SimpleGrid>
-            <HStack
-              alignItems={'start'}
-              justifyContent={'space-between'}
-            >
-            </HStack>
-            {/* ACTIONS */}
         </VStack>
     );
 };
