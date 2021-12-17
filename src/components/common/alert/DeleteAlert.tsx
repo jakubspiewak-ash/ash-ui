@@ -10,21 +10,18 @@ import {
     Button,
 } from '@chakra-ui/react';
 
-interface ExpenseDeleteAlertProps {
+interface DeleteAlertProps {
     isOpen: boolean,
     onClose: () => void,
     onDelete: () => void,
-    name: string
+    message: string,
 }
 
-export const ExpenseDeleteAlert = (props: ExpenseDeleteAlertProps) => {
-    const { onClose, isOpen, name, onDelete } = props;
+export const DeleteAlert = (props: DeleteAlertProps) => {
+
+    const { isOpen, onClose, onDelete, message } = props;
 
     const cancelRef = useRef<any>();
-    const onDeleteClick = () => {
-        onDelete();
-        onClose();
-    };
 
     return (
         <AlertDialog
@@ -39,7 +36,7 @@ export const ExpenseDeleteAlert = (props: ExpenseDeleteAlertProps) => {
                         Are you sure?
                     </AlertDialogHeader>
                     <AlertDialogBody>
-                        Do you want to delete <b>{name}</b> expense?
+                        <div dangerouslySetInnerHTML={{ __html: message }}/>
                     </AlertDialogBody>
                     <AlertDialogFooter>
                         <Button
@@ -51,7 +48,7 @@ export const ExpenseDeleteAlert = (props: ExpenseDeleteAlertProps) => {
                         <Button
                           colorScheme={'red'}
                           ml={3}
-                          onClick={() => onDeleteClick()}
+                          onClick={() => onDelete()}
                         >
                             Delete
                         </Button>

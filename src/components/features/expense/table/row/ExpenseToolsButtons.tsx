@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
 import { IconButton, useDisclosure } from '@chakra-ui/react';
 
-import { ExpenseDeleteAlert } from '../ExpenseDeleteAlert';
+import { DeleteAlert } from '../../../../common/alert/DeleteAlert';
 
 
 interface ExpenseToolsButtonProps {
@@ -16,6 +16,10 @@ interface ExpenseToolsButtonProps {
 export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
     const { onEdit, onInfo, onDelete, name } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const deleteAlertMessage = useMemo(() => {
+        return `Do you want to delete <b>${name}</b> expense?`;
+    }, [name]);
 
     return (
         <>
@@ -44,9 +48,9 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
               size={'sm'}
               onClick={onInfo}
             />
-            <ExpenseDeleteAlert
+            <DeleteAlert
               isOpen={isOpen}
-              name={name}
+              message={deleteAlertMessage}
               onClose={onClose}
               onDelete={onDelete}
             />
