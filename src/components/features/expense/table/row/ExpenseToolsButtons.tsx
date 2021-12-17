@@ -1,17 +1,22 @@
 import React from 'react';
 
 import { DeleteIcon, EditIcon, InfoIcon } from '@chakra-ui/icons';
-import { IconButton } from '@chakra-ui/react';
+import { IconButton, useDisclosure } from '@chakra-ui/react';
+
+import { ExpenseDeleteAlert } from '../ExpenseDeleteAlert';
 
 
 interface ExpenseToolsButtonProps {
     onInfo: () => void,
     onDelete: () => void,
     onEdit: () => void,
+    name: string,
 }
 
 export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
-    const { onEdit, onInfo, onDelete } = props;
+    const { onEdit, onInfo, onDelete, name } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
         <>
             <IconButton
@@ -29,7 +34,7 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
               ml={2}
               my={3}
               size={'sm'}
-              onClick={onDelete}
+              onClick={onOpen}
             />
             <IconButton
               aria-label='info'
@@ -38,6 +43,12 @@ export const ExpenseToolsButtons = (props: ExpenseToolsButtonProps) => {
               my={3}
               size={'sm'}
               onClick={onInfo}
+            />
+            <ExpenseDeleteAlert
+              isOpen={isOpen}
+              name={name}
+              onClose={onClose}
+              onDelete={onDelete}
             />
         </>
 

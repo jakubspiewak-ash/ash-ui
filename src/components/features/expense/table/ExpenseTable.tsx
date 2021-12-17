@@ -78,7 +78,6 @@ export const ExpenseTable = () => {
               borderRadius={16}
               borderWidth={1}
               boxShadow={'md'}
-                // overflowX={'auto'}
               templateColumns={'repeat(12, 1fr)'}
             >
                 {TableBodyContent}

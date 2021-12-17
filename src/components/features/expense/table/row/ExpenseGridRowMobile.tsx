@@ -43,7 +43,10 @@ const VisibleInfoRow = (props: ExpenseTableRowProps) => {
               align={'end'}
               size={5}
             >
-                <ExpenseToolsButtons {...actions}/>
+                <ExpenseToolsButtons
+                  {...actions}
+                  name={expense.name}
+                />
             </ExpenseGridCell>
         </>
     );
