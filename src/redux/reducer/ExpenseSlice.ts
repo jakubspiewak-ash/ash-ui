@@ -10,6 +10,22 @@ import { ApiStatus, AppThunkApi } from '../types';
 export type FormAmount = Omit<ApiExpenseAmount, 'net' | 'gross'> & { net?: number, gross?: number }
 export type ExpenseFormType = Omit<ApiExpenseRequest, 'amount'> & { amount: FormAmount, id?: string };
 
+
+interface ExpenseState {
+    table: {
+        data: ApiExpenseGetResponse,
+        status: ApiStatus,
+        currentInfo: string | null,
+    }
+    month: YearMonth,
+    modal: {
+        isOpen: boolean,
+        initialFormValue: ExpenseFormType,
+        mode: 'ADD' | 'EDIT',
+        status: ApiStatus
+    }
+}
+
 const emptyFormValue: ExpenseFormType = {
     amount: {
         currency: 'PLN',
@@ -26,33 +42,7 @@ const emptyFormValue: ExpenseFormType = {
     name: '',
 };
 
-
-interface ExpenseState {
-    status: ApiStatus,
-    data: ApiExpenseGetResponse,
-    month: YearMonth,
-    modal: {
-        isOpen: boolean,
-        initialFormValue: ExpenseFormType,
-        mode: 'ADD' | 'EDIT',
-        status: ApiStatus
-    }
-}
-
-const initialState: ExpenseState = {
-    data: {
-        expenses: [],
-        summary: {
-            amount: {
-                currency: '',
-                gross: 0,
-                net: 0,
-                vat: 0,
-            },
-            currency: [],
-            date: {},
-        },
-    },
+export const initialState: ExpenseState = {
     modal: {
         initialFormValue: emptyFormValue,
         isOpen: false,
@@ -60,7 +50,23 @@ const initialState: ExpenseState = {
         status: 'IDLE',
     },
     month: getCurrentMonth(),
-    status: 'IDLE',
+    table: {
+        currentInfo: null,
+        data: {
+            expenses: [],
+            summary: {
+                amount: {
+                    currency: '',
+                    gross: 0,
+                    net: 0,
+                    vat: 0,
+                },
+                currency: [],
+                date: {},
+            },
+        },
+        status: 'IDLE',
+    },
 };
 
 export const loadExpenses = createAsyncThunk<ApiExpenseGetResponse, YearMonth | undefined, AppThunkApi>(
@@ -94,15 +100,15 @@ const ExpenseSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(loadExpenses.pending, (state) => {
-                state.status = 'LOADING';
+                state.table.status = 'LOADING';
             })
             .addCase(loadExpenses.fulfilled, (state, action) => {
-                state.status = 'SUCCESS';
+                state.table.status = 'SUCCESS';
                 state.month = action.meta.arg || state.month;
-                state.data = action.payload;
+                state.table.data = action.payload;
             })
             .addCase(loadExpenses.rejected, (state) => {
-                state.status = 'FAILED';
+                state.table.status = 'FAILED';
             })
             .addCase(saveExpense.pending, (state) => {
                 state.modal.status = 'LOADING';
@@ -115,13 +121,13 @@ const ExpenseSlice = createSlice({
                 state.modal.status = 'FAILED';
             })
             .addCase(deleteExpense.pending, (state) => {
-                state.status = 'LOADING';
+                state.table.status = 'LOADING';
             })
             .addCase(deleteExpense.fulfilled, (state) => {
-                state.status = 'SUCCESS';
+                state.table.status = 'SUCCESS';
             })
             .addCase(deleteExpense.rejected, (state) => {
-                state.status = 'FAILED';
+                state.table.status = 'FAILED';
             });
     },
     initialState,
@@ -140,8 +146,12 @@ const ExpenseSlice = createSlice({
                 state.modal.mode = 'ADD';
             }
         },
+        reset: () => initialState,
+        toggleInfo: (state, action: PayloadAction<string>) => {
+            state.table.currentInfo = state.table.currentInfo === action.payload ? null : action.payload;
+        },
     },
 });
 
-export const { openModal, closeModal } = ExpenseSlice.actions;
+export const { openModal, closeModal, toggleInfo, reset } = ExpenseSlice.actions;
 export default ExpenseSlice.reducer;

@@ -4,8 +4,8 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import { UseFormReturn } from 'react-hook-form';
 
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { loadExpenses, saveExpense } from '../../../../redux/reducer/ExpenseSlice';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { closeModal, loadExpenses, saveExpense } from '../../../../redux/reducer/ExpenseSlice';
 import { ApiExpenseRequest } from '../../../../services/api.types';
 import { DateRangeField } from '../../../common/form/fields/DateRangeField';
 import { MoneyField } from '../../../common/form/fields/MoneyField';
@@ -23,7 +23,6 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
     const { handleSubmit, watch, setValue } = form;
 
     const dispatch = useAppDispatch();
-    const { month } = useAppSelector((state) => state.expense);
 
     const isPrivate: boolean = watch('isPrivate');
     const mailConfig = watch('mailConfig');
@@ -31,7 +30,13 @@ export const ExpenseForm = (props: ExpenseFormProps) => {
     const [isMailConfigEnabled, setMailConfigEnabled] = useState(false);
 
     const onMailConfigToggle = () => setMailConfigEnabled(!isMailConfigEnabled);
-    const onSubmit = (request: ApiExpenseRequest) => dispatch(saveExpense(request)).then(() => dispatch(loadExpenses(month)));
+    const onSubmit = (request: ApiExpenseRequest) => {
+        // eslint-disable-next-line no-console
+        console.log(request);
+        dispatch(saveExpense(request))
+            .then(() => dispatch(loadExpenses()))
+            .then(() => dispatch(closeModal()));
+    };
 
     const isMailConfigEnabledIndex = useMemo(() => isMailConfigEnabled ? 0 : -1, [isMailConfigEnabled]);
 

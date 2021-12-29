@@ -1,13 +1,13 @@
 import { GridItem, Heading } from '@chakra-ui/react';
 
 interface NoDataTableRowProps {
-    colsNumber: number
+    size: number
 }
 
-export const NoDataTableRow = ({ colsNumber }: NoDataTableRowProps) => {
+export const NoDataTableRow = ({ size }: NoDataTableRowProps) => {
     return (
         <GridItem
-          colSpan={colsNumber}
+          colSpan={size}
           p={4}
         >
             <Heading textAlign='center'>No data</Heading>
